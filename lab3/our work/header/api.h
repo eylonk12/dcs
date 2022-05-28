@@ -3,10 +3,9 @@
 
 #include  "../header/halGPIO.h"     // private library - HAL layer
 
+extern void tone_recoder(void);
+extern void audio_player(void);    
 
-void lcd_puts(const char *, int);
-int count_digits(unsigned int);
-void int_to_char_arr(unsigned int);
 #endif
 
 

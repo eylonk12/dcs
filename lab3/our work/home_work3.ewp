@@ -1884,7 +1884,7 @@
     </file>
   </group>
   <group>
-    <name>sourse</name>
+    <name>source</name>
     <file>
       <name>$PROJ_DIR$\source\api.c</name>
     </file>

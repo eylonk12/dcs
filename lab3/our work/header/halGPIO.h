@@ -14,41 +14,39 @@
 	#define LCD_WAIT DelayMs(5)
 #endif
 
-
 extern enum FSMstate state;   // global variable
 extern enum SYSmode lpm_mode; // global variable
+extern volatile unsigned int KP;  // Key Pad.
+extern volatile int display_screen;
+
 extern void sysConfig(void);
 extern void enterLPM(unsigned char);
-// External variables for state 1.
-extern unsigned int capture_1;
-extern unsigned int capture_2;
-extern unsigned int ifg_capture_1;
-extern unsigned int ifg_capture_2;
-extern unsigned int ifg_counter;
-extern int enter_to_state_1;
-// External variables for state 2.
-extern unsigned int seconds_counter;
-extern unsigned int minutes_counter;
-extern int enter_to_state_2;
-extern int enter_to_state_4;
-extern int state_2_interrupt_occured;
-// External variables for state 4.
-extern unsigned int second_counter;
-extern unsigned int duty_cycle;
+extern void init_recorder(void);
+extern void display_menu(void);
+extern void Enable_TimerB_PWM(void);
+extern void Disnable_TimerB_PWM(void);
+extern void Enable_TimerA_345(void);
+extern void Disable_TimerA_345(void);
+extern void dma_config(void);
+extern void dma_disable(void);
+extern void choose_song_from_menu(void);
+
+extern int recorder_song_freq[33];
+extern int recorder_song_dc[33];
+extern int octave_frequencies[13];
+extern char output_string[16];
+
 //**************************************************************
 // LCD functions
 //**************************************************************
 extern void lcd_cmd(unsigned char);
 extern void lcd_data(unsigned char);
-extern void lcd_puts(const char * s, int size);
+extern void lcd_puts(const char * s);
 extern void lcd_disp_min();
 extern void lcd_init();
 extern void lcd_strobe();
 extern void DelayMs(unsigned int);
 extern void DelayUs(unsigned int);
-// timer functions
-extern void timer_a0_rst_ena();
-extern void timer_a1_rst_ena();
 
 /*----------------------------------------------------------
   CONFIG: change values according to your port pin selection
