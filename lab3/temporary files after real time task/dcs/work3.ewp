@@ -640,7 +640,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state>home_work3.d43</state>
+          <state>work3.d43</state>
         </option>
         <option>
           <name>OutputFormat</name>
@@ -654,7 +654,7 @@
         </option>
         <option>
           <name>SecondaryOutputFile</name>
-          <state>(None for the selected format)</state>
+          <state></state>
         </option>
         <option>
           <name>XDefines</name>
@@ -694,7 +694,7 @@
         </option>
         <option>
           <name>XIncludes</name>
-          <state>$TOOLKIT_DIR$\LIB\</state>
+          <state>###Uninitialized###</state>
         </option>
         <option>
           <name>ModuleStatus</name>
@@ -706,7 +706,7 @@
         </option>
         <option>
           <name>XclFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\lnk430FG4619.xcl</state>
+          <state>lnk0t.xcl</state>
         </option>
         <option>
           <name>XclFileSlave</name>
@@ -794,7 +794,7 @@
         </option>
         <option>
           <name>xcProgramEntryLabel</name>
-          <state>__program_start</state>
+          <state></state>
         </option>
         <option>
           <name>DebugInformation</name>
@@ -834,7 +834,7 @@
         </option>
         <option>
           <name>ExtraOutputFile</name>
-          <state>home_work3.a43</state>
+          <state></state>
         </option>
         <option>
           <name>ExtraOutputFormat</name>
@@ -1871,31 +1871,31 @@
   <group>
     <name>header</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Downloads\header\api.h</name>
+      <name>$PROJ_DIR$\IAR\header\api.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Downloads\header\app.h</name>
+      <name>$PROJ_DIR$\IAR\header\app.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Downloads\header\bsp.h</name>
+      <name>$PROJ_DIR$\IAR\header\bsp.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Downloads\header\halGPIO.h</name>
+      <name>$PROJ_DIR$\IAR\header\halGPIO.h</name>
     </file>
   </group>
   <group>
     <name>source</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Downloads\source\api.c</name>
+      <name>$PROJ_DIR$\IAR\source\api.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Downloads\source\bsp.c</name>
+      <name>$PROJ_DIR$\IAR\source\bsp.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Downloads\source\halGPIO.c</name>
+      <name>$PROJ_DIR$\IAR\source\halGPIO.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\Downloads\source\main.c</name>
+      <name>$PROJ_DIR$\IAR\source\main.c</name>
     </file>
   </group>
 </project>

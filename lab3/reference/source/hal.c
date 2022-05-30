@@ -55,7 +55,7 @@ void lcd_data(unsigned char c){
 	}
 	else
 	{
-		LCD_DATA_WRITE = c;
+		LCD_DATA_WRITE = c
 		lcd_strobe();
 	}
           
