@@ -15,10 +15,11 @@
 //**************************************************************
 // variables
 //**************************************************************
-extern int  state;            // Current state global variable
+extern volatile unsigned int  state;            // Current state global variable
 extern enum SYSmode lpm_mode; // global variable
-extern volatile char X[10];   // data for buffer
-extern volatile int RGB_DATA  // the data to RGB output
+extern volatile char delay_str[10];   // data for buffer
+extern volatile unsigned int delay_int;   // data for buffer
+extern volatile int RGB_DATA ; // the data to RGB output
 
 
 extern void sysConfig(void);

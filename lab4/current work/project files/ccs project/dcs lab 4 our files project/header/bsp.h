@@ -24,6 +24,8 @@ extern void GPIOconfig(void);
 
 #define UART_SEL           P1SEL
 #define UART_OUT           P1OUT
+#define RxBuffer UCA0RXBUF
+#define TxBuffer UCA0TXBUF
 
 ////////////////// POT DEFINES //////////////////
 #define POT_SEL            P1SEL

@@ -21,6 +21,8 @@ extern void Count_down(int delay);                         // state 3
 extern void Potentiometer(void);                           // state 5
 extern void Restart_program(void);                         // state 6
 extern void Transmit_menu(void);                           // state 7
+extern void progConfig(void);
+extern void sleep(void);
 
 
 #endif

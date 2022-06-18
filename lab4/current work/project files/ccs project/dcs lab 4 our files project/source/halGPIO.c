@@ -1,4 +1,5 @@
 #include  "../header/halGPIO.h"     // private library - HAL layer
+#include "../header/bsp.h"
 
 
 // variables
@@ -46,7 +47,7 @@ void SRC_from_POT(void){
     ADC10CTL0 &= ~ENC;                      // ~Enable conversion
     while(ADC10CTL1 & ADC10BUSY);           // Wait if ADC10 core is active
     ADC10CTL0 |= ENC + ADC10SC;             // Sampling and conversion start
-    enterLPM(lpm_mode);        // LPM0, ADC10_ISR will force exit
+    _BIS_SR(LPM0_bits + GIE);               // LPM0, ADC10_ISR will force exit
     __no_operation();                       // For debugger
     ADC10CTL0 &= ~ADC10ON;                  // ADC10 OFF
 }
@@ -57,7 +58,7 @@ void adc10_config(){
 }
 
 void clear_all(void){
-    RGB_CLR;
+    CLR_RGB;
     lcd_clear();
 }
 
@@ -127,10 +128,10 @@ __interrupt void USCI0RX_ISR(void)
         exit_lpm;                // Exit LPM0 on return to main
     }
     else{
-      X[j++] = RxBuffer;
-      if (X[j-1] == '\0'){
+        delay_str[j++] = RxBuffer;
+      if (delay_str[j-1] == '\0'){
           j = 0;
-          x = str2int(X);
+          delay_int = str2int(delay_str);
           state = 8;
       }
     }
