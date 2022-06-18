@@ -1,0 +1,9 @@
+14:08:40 **** Build of configuration Debug for project dcs lab4 our files project ****
+make all 
+Cannot run program "make": Launching failed
+
+Error: Program "make" not found in PATH
+PATH=[C:/ti/ccsv7/eclipse/jre/bin/client;C:/ti/ccsv7/eclipse/jre/bin;C:/ti/ccsv7/eclipse/jre/lib/i386;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\Git\cmd;C:\Users\eylonk\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\eylonk\AppData\Local\Programs\Python\Python39\;C:\Users\eylonk\AppData\Local\Microsoft\WindowsApps;C:\Users\eylonk\AppData\Local\Programs\Microsoft VS Code\bin;c:\altera\12.1\modelsim_ase\win32aloem;C:\Program Files\JetBrains\PyCharm Community Edition 2021.3.3\bin;;C:\Users\eylonk\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.9;;C:\ti\ccsv7\eclipse]
+
+14:08:40 Build Finished (took 125ms)
+

@@ -1,0 +1,13 @@
+#ifndef _api_H_
+#define _api_H_
+
+#include  "../header/halGPIO.h"     // private library - HAL layer
+
+enum SYSmode{mode0,mode1,mode2,mode3,mode4}; // global variable
+
+#endif
+
+
+
+
+

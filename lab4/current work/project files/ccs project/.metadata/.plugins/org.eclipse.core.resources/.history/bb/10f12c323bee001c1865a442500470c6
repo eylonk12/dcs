@@ -1,0 +1,41 @@
+#include  "../header/bsp.h"    // private library - BSP layer
+//#include "msp430fg4619.h"
+//-----------------------------------------------------------------------------  
+//           GPIO congiguration
+//-----------------------------------------------------------------------------
+void GPIOconfig(void){
+ // volatile unsigned int i; // in case of while loop usage
+  
+  WDTCTL = WDTHOLD | WDTPW;		// Stop WDT
+   
+  if (CALBC1_1MHZ==0xFF)                  // If calibration constant erased
+      {
+        while(1);                               // do not load, trap CPU!!
+      }
+    DCOCTL = 0;                               // Select lowest DCOx and MODx settings
+    BCSCTL1 = CALBC1_1MHZ;                    // Set DCO
+    DCOCTL = CALDCO_1MHZ;
+
+  ///////////////////////     LCD CONFIGURATIONS         //////////////////////////////////
+  // LCDs 4-bit Array Port configuration
+  LCD_DATA_SEL &= ~0xF0;            // GPIO capability
+  LCD_DATA_DIR |=  0xF0;            // P1.4 -P1.7 OUTPUT MODE FOR LCD
+  // P2.5-P2.7 CONTROL LCD OUTPUT CONFIG
+  LCD_EN_SEL  &= ~0xE0;              // p2.5-p2.7 sel =0 I\O mode
+  LCD_DIR     |=  0xE0;              // p2.5-p2.7 dir =1 output mode
+  LCD_ENABLES &= ~0xE0;              // p2.5-p2.7 clear bits
+  ////////////////////////////////////////////////////////////////////////////////////
+
+  ///////////////////////     UART CONFIGURATIONS         //////////////////////////////////
+
+  UCA0CTL1 |= UCSSEL_2;    // CLK = SMCLK
+  // Setting the Baud rate to 9600 Baud.
+  UCA0BR0 = 104;
+  UCA0BR1 = 0x00;
+
+  UCA0MCTL = UCBRS0;
+  ////////////////////////////////////////////////////////////////////////////////////
+    
+  _BIS_SR(GIE);                     // enable interrupts globally
+}                             
+

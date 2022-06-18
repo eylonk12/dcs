@@ -1,0 +1,78 @@
+
+**** Build of configuration Debug for project dcs lab 4 our files project ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+'Building file: "../source/main.c"'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="C:/ti/ccsv7/ccs_base/msp430/include" --include_path="C:/Users/eylonk/dcs/lab4/current work/project files/ccs project/dcs lab 4 our files project" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="source/main.d_raw" --obj_directory="source"  "../source/main.c"
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 199: warning #48-D: incompatible redefinition of macro "SREF0" (declared at line 374 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 200: warning #48-D: incompatible redefinition of macro "SREF1" (declared at line 375 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 201: warning #48-D: incompatible redefinition of macro "SREF2" (declared at line 376 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 207: warning #48-D: incompatible redefinition of macro "SREF_0" (declared at line 396 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 208: warning #48-D: incompatible redefinition of macro "SREF_1" (declared at line 397 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 209: warning #48-D: incompatible redefinition of macro "SREF_2" (declared at line 398 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 210: warning #48-D: incompatible redefinition of macro "SREF_3" (declared at line 399 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 211: warning #48-D: incompatible redefinition of macro "SREF_4" (declared at line 400 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 212: warning #48-D: incompatible redefinition of macro "SREF_5" (declared at line 401 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 213: warning #48-D: incompatible redefinition of macro "SREF_6" (declared at line 402 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 214: warning #48-D: incompatible redefinition of macro "SREF_7" (declared at line 403 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 229: warning #48-D: incompatible redefinition of macro "INCH0" (declared at line 370 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 230: warning #48-D: incompatible redefinition of macro "INCH1" (declared at line 371 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 231: warning #48-D: incompatible redefinition of macro "INCH2" (declared at line 372 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 232: warning #48-D: incompatible redefinition of macro "INCH3" (declared at line 373 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 258: warning #48-D: incompatible redefinition of macro "INCH_0" (declared at line 379 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 259: warning #48-D: incompatible redefinition of macro "INCH_1" (declared at line 380 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 260: warning #48-D: incompatible redefinition of macro "INCH_2" (declared at line 381 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 261: warning #48-D: incompatible redefinition of macro "INCH_3" (declared at line 382 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 262: warning #48-D: incompatible redefinition of macro "INCH_4" (declared at line 383 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 263: warning #48-D: incompatible redefinition of macro "INCH_5" (declared at line 384 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 264: warning #48-D: incompatible redefinition of macro "INCH_6" (declared at line 385 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 265: warning #48-D: incompatible redefinition of macro "INCH_7" (declared at line 386 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 266: warning #48-D: incompatible redefinition of macro "INCH_8" (declared at line 387 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 267: warning #48-D: incompatible redefinition of macro "INCH_9" (declared at line 388 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 268: warning #48-D: incompatible redefinition of macro "INCH_10" (declared at line 389 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 269: warning #48-D: incompatible redefinition of macro "INCH_11" (declared at line 390 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 270: warning #48-D: incompatible redefinition of macro "INCH_12" (declared at line 391 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 271: warning #48-D: incompatible redefinition of macro "INCH_13" (declared at line 392 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 272: warning #48-D: incompatible redefinition of macro "INCH_14" (declared at line 393 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 273: warning #48-D: incompatible redefinition of macro "INCH_15" (declared at line 394 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 308: warning #48-D: incompatible redefinition of macro "XT2OFF" (declared at line 874 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 317: warning #48-D: incompatible redefinition of macro "SELS" (declared at line 871 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 320: warning #48-D: incompatible redefinition of macro "SELM0" (declared at line 872 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 321: warning #48-D: incompatible redefinition of macro "SELM1" (declared at line 873 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 339: warning #48-D: incompatible redefinition of macro "XT2OF" (declared at line 853 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 935: warning #48-D: incompatible redefinition of macro "CREATE_VECTOR" (declared at line 1813 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 937: warning #48-D: incompatible redefinition of macro "ISR_VECTOR" (declared at line 1816 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 948: warning #48-D: incompatible redefinition of macro "PORT1_VECTOR" (declared at line 1854 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 953: warning #48-D: incompatible redefinition of macro "PORT2_VECTOR" (declared at line 1839 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 963: warning #48-D: incompatible redefinition of macro "USCIAB0TX_VECTOR" (declared at line 1874 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 968: warning #48-D: incompatible redefinition of macro "USCIAB0RX_VECTOR" (declared at line 1879 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 973: warning #48-D: incompatible redefinition of macro "TIMER0_A1_VECTOR" (declared at line 1279 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 978: warning #48-D: incompatible redefinition of macro "TIMER0_A0_VECTOR" (declared at line 1280 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 983: warning #48-D: incompatible redefinition of macro "WDT_VECTOR" (declared at line 1884 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 988: warning #48-D: incompatible redefinition of macro "COMPARATORA_VECTOR" (declared at line 1889 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 1003: warning #48-D: incompatible redefinition of macro "NMI_VECTOR" (declared at line 1904 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"C:\ti\ccsv7\ccs_base\msp430\include\msp430g2553.h", line 1008: warning #48-D: incompatible redefinition of macro "RESET_VECTOR" (declared at line 1909 of "C:/ti/ccsv7/ccs_base/msp430/include/msp430xG46x.h")
+"../source/main.c", line 5: remark #1535-D: (ULP 8.1) variable "state" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../source/main.c", line 6: remark #1535-D: (ULP 8.1) variable "lpm_mode" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+'Finished building: "../source/main.c"'
+ 
+'Building target: "dcs lab 4 our files project.out"'
+'Invoking: MSP430 Linker'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"dcs lab 4 our files project.map" --heap_size=80 --stack_size=80 -i"C:/ti/ccsv7/ccs_base/msp430/include" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="dcs lab 4 our files project_linkInfo.xml" --use_hw_mpy=none --rom_model -o "dcs lab 4 our files project.out" "./source/api.obj" "./source/bsp.obj" "./source/halGPIO.obj" "./source/main.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 4 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 5 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 6 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 7 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 8 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 9 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 10 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port A in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port B in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+'Finished building target: "dcs lab 4 our files project.out"'
+ 
+
+**** Build Finished ****

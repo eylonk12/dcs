@@ -1,0 +1,28 @@
+#include <msp430.h>                 //include  <msp430xG46x.h> IDE library
+
+#include  "../header/api.h"    		// private library - API layer
+#include  "../header/halGPIO.h"     // private library - HAL layer
+#include  "../header/bsp.h"         // private library - BSP layer
+
+volatile int RGB_DATA = 0x01;    // initialize value for the RGB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
