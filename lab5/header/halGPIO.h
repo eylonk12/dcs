@@ -50,13 +50,14 @@ extern void DelayUs(unsigned int);
 extern void motor_cycle_cw(void);
 extern void motor_cycle_ccw(void);
 extern void read_from_juystick(void);
-extern void Enable_TimerA_345(void);
+extern void Enable_TimerA_10ms(void);
 extern void Disable_TimerA_345(void);
 extern void blink_RGB(int delay);
-extern volatile unsigned int step_cnt ;           // the value of the current step for restart
+extern unsigned int step_cnt ;           // the value of the current step for restart
 extern volatile int motor_dir;                       // direction of the motor movement
 extern volatile int motor_is_moving;
-extern volatile int steps;
+extern int steps;
+extern void delay10MS(void);
 
 #define exit_lpm __bic_SR_register_on_exit(LPM0_bits + GIE);
 

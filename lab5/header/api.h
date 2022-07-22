@@ -13,12 +13,13 @@ extern volatile int top_to_bottom;                           // going to be the 
 extern volatile int bottom_to_top;                           // going to be 0
 extern volatile char POT_val[5];
 extern volatile unsigned int current_step ;
-extern volatile unsigned int step_cnt ;           // the value of the current step for restart
+extern volatile unsigned int delay_int ;
+extern unsigned int step_cnt ;           // the value of the current step for restart
 extern volatile int motor_dir;                       // direction of the motor movement
 extern volatile int motor_is_moving;
-extern volatile int steps;
+extern int steps;
 //**************************************************************
-//        functions for api
+//        functions fors api
 //**************************************************************
 extern void progConfig(void);
 extern void MOTOR_move(int delay,int steps);

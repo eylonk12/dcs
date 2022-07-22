@@ -1,9 +1,9 @@
 #ifndef _bsp_H_
 #define _bsp_H_
 
-// #include  <msp430g2553.h>          // MSP430x2xx
+#include  <msp430g2553.h>          // MSP430x2xx
 // #include  <msp430xG46x.h>  // MSP430x4xx
-#include  <msp430xG46x.h> // IDE library
+//#include  <msp430xG46x.h> // IDE library
 #include <msp430.h>
 
 extern void GPIOconfig(void);

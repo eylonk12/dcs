@@ -5,10 +5,10 @@
 volatile unsigned int   state = 7;
 enum SYSmode lpm_mode;
 volatile unsigned int delay_int = 10;       // the default value for the delay
-volatile int steps;           // the default value for the delay
+int steps;           // the default value for the delay
 volatile float deg = 270;                      // the default value deg
 volatile unsigned int current_step = 0;    // the value of the current step for restart
-volatile unsigned int step_cnt=0 ;           // the value of the current step for restart
+unsigned int step_cnt=0 ;           // the value of the current step for restart
 volatile int motor_dir;                       // direction of the motor movement
 volatile int motor_is_moving =0;              //
 volatile char delay_str[10];                 // Receive the char to here for conversion
@@ -24,5 +24,4 @@ void main(void){
       deg = calc_degree();
       MOTOR_2_deg(deg);
   }
-    sleep();
 }

@@ -5,6 +5,8 @@
 // variables
 volatile char POT_val[5];
 unsigned int i,j;
+unsigned int OFFCount;
+unsigned int dealy_cnt=-1;
 int volatile MOTOR_DATA = 0x08 ;
 unsigned int adc[2] = {0};	// This will hold the x,y axis values
 int X_Axis = 0;
@@ -22,13 +24,20 @@ void sysConfig(void){
 //---------------------------------------------------------------------
 //            TIMER A config for counting 345 ms
 //---------------------------------------------------------------------
-void Enable_TimerA_345(void){
+void delay10MS(void){
+    OFFCount = 0;          // Rest Over flow counter
+    dealy_cnt = 0;
+    TACCR0 = 1310-1;       // Start Timer, Compare value for Up Mode to get 10ms delay per loop
+//Total count = TACCR0 + 1. Hence we need to subtract 1.
+}
+
+
+void Enable_TimerA_10ms(void){
     TACTL = TAIE;    // SMCLK, up mode, divide SMCLK to become 2^17, TA interrupt enable
 }
 
 void Disable_TimerA_345(void){
-    TACCTL0 &= ~CCIE;         // Disable interrupts from timer
-    TACTL =  MC_0 + TACLR;    // Stop mode, clear timer
+    TACCR0 = 0; //Stop Timer
 }
 
 
@@ -99,27 +108,6 @@ __interrupt void ADC10_ISR(void){
     __bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
 }
 
-
-
-//******************************************************************
-// Delay usec functions
-//******************************************************************
-void DelayUs(unsigned int cnt){
-  
-	unsigned char i;
-        for(i=cnt ; i>0 ; i--) asm(" nop"); // tha command asm(" nop") takes raphly 1usec
-	
-}
-//******************************************************************
-// Delay msec functions
-//******************************************************************
-void DelayMs(unsigned int cnt){
-  
-	unsigned char i;
-        for(i=cnt ; i>0 ; i--) DelayUs(1000); // tha command asm(" nop") takes raphly 1usec
-	
-}
-
 //**************************************************************
 //            Enter from LPM0 mode and enable global interrupts
 //**************************************************************
@@ -139,22 +127,31 @@ void enterLPM(unsigned char LPM_level){
 //*********************************************************************
 //            TIMERA Interrupt Service Rotine
 //*********************************************************************
-#pragma vector=TIMER1_A1_VECTOR
-__interrupt void Timer_A1(void){
-    switch (motor_dir){
-        case 0:
-            motor_cycle_ccw();
-            break;
-        case 1:
-            motor_cycle_cw();
-            break;
+#pragma vector=TIMER0_A0_VECTOR
+__interrupt void Timer_A0(void){
+    if (dealy_cnt == delay_int){
+        switch (motor_dir){
+            case 0:
+                motor_cycle_ccw();
+                step_cnt++;
+                break;
+            case 1:
+                motor_cycle_cw();
+                step_cnt++;
+                break;
+        }
+        // step_cnt ++;
+        if(steps <= step_cnt){
+            step_cnt = 0;
+            steps = 0;
+            motor_is_moving = 0;
+            dealy_cnt =0;
+            Disable_TimerA_345();   // Stop mode, clear timer
+        }
+    }else{
+        dealy_cnt++;
     }
-    step_cnt ++;
-    if(steps <= step_cnt){
-        step_cnt = 0;
-        motor_is_moving = 0;
-        Disable_TimerA_345();   // Stop mode, clear timer
-    }
+
 }
 
 
