@@ -16,11 +16,11 @@ class Paint(Toplevel):
     def __init__(self):
         self.root = Tk()
 
-        self.pen_button = Button(self.root, text='pen', command=self.use_pen)
-        self.pen_button.grid(row=0, column=0)
-
-        self.eraser_button = Button(self.root, text='eraser', command=self.use_eraser)
-        self.eraser_button.grid(row=0, column=3)
+        # self.pen_button = Button(self.root, text='pen', command=self.use_pen)
+        # self.pen_button.grid(row=0, column=0)
+        #
+        # self.eraser_button = Button(self.root, text='eraser', command=self.use_eraser)
+        # self.eraser_button.grid(row=0, column=3)
 
         self.c = Canvas(self.root, bg='white', width=600, height=600)
         self.c.grid(row=1, columnspan=5)
@@ -28,10 +28,11 @@ class Paint(Toplevel):
         self.x_input      = 300
         self.y_input      = 300
         self.theta        = 0
-        self.radius       = 5
+        self.radius       = 1
         self.change_input = 0
         self.closing_app  = False
         self.draws_counter = 0
+        self.radius_mode  = 0
 
         # serial_comm.reset_input_buffer()
         # serial_comm.reset_output_buffer()
@@ -52,7 +53,7 @@ class Paint(Toplevel):
         self.color = self.DEFAULT_COLOR
         self.eraser_on = False
         self.cursor_mode = False
-        self.active_button = self.pen_button
+        # self.active_button = self.pen_button
         # self.c.bind('<B1-Motion>', self.paint)
         # self.c.bind('<ButtonRelease-1>', self.reset)
 
@@ -67,36 +68,9 @@ class Paint(Toplevel):
         # self.activate_button(self.eraser_button, eraser_mode=True)
 
     def use_cursor(self):
+        self.old_x, self.old_y = None, None
         self.cursor_mode = True
         self.eraser_on   = False
-
-    # def activate_button(self, some_button, eraser_mode=False):
-    #     self.active_button.config(relief=RAISED)
-    #     some_button.config(relief=SUNKEN)
-    #     self.active_button = some_button
-    #     self.eraser_on = eraser_mode
-
-    # def paint(self, event):
-    #     paint_color = 'white' if self.eraser_on else self.color
-    #     if self.old_x and self.old_y:
-    #         self.c.create_line(self.old_x, self.old_y, event.x, event.y,
-    #                            width=self.line_width, fill=paint_color,
-    #                            capstyle=ROUND, smooth=TRUE, splinesteps=36)
-    #     self.old_x = event.x
-    #     self.old_y = event.y
-    #     self.get_next_coordinate()
-
-    # def paint(self, x, y):
-    #     paint_color = 'white' if self.eraser_on else self.color
-    #     if self.old_x and self.old_y:
-    #         self.c.create_line(self.old_x, self.old_y, self.old_x+x, self.old_y+y,
-    #                            width=self.line_width, fill=paint_color,
-    #                            capstyle=ROUND, smooth=TRUE, splinesteps=36)
-    #     if self.old_x == None:
-    #         self.old_x = 300
-    #         self.old_y = 300
-    #     self.old_x = self.old_x+x
-    #     self.old_y = self.old_y+y
 
     def paint(self, theta):
         if self.old_x == None:
@@ -109,10 +83,13 @@ class Paint(Toplevel):
         y = y_offset + self.old_y
 
         paint_color = 'white' if self.eraser_on else self.color
-        if self.old_x and self.old_y:
-            self.c.create_line(self.old_x, self.old_y, x, y,
-                               width=self.line_width, fill=paint_color,
-                               capstyle=ROUND, smooth=TRUE, splinesteps=36)
+        if not self.cursor_mode:
+            if self.old_x and self.old_y:
+                self.c.create_line(self.old_x, self.old_y, x, y,
+                                   width=self.line_width, fill=paint_color,
+                                   capstyle=ROUND, smooth=TRUE, splinesteps=36)
+        else:
+            move_mouse_to(x,y)
         self.old_x = x
         self.old_y = y
 
@@ -124,19 +101,20 @@ class Paint(Toplevel):
         self.old_x, self.old_y = None, None
 
     def get_next_input(self):
-        self.theta = self.draws_counter/10
-        if self.draws_counter == 3600:
+        self.theta  = self.draws_counter/10
+        if self.radius_mode == 0:
+            self.radius += 0.1
+        else:
+            self.radius -= 1
+        if self.radius > 10:
+            self.radius_mode = 1
+        if self.radius <= 0.1:
+            self.radius_mode = 0
+        if self.draws_counter % 50 == 0:
             self.change_input = 1
         else:
             self.change_input = 0
-        # if self.draws_counter < 10:
-        #     self.x_input = 1
-        #     self.y_input = 1
-        #     self.change_input = 0
-        # else:
-        #     self.x_input = 1
-        #     self.y_input = 0
-        #     self.change_input = 0
+
 
     def get_next_coordinate(self):
         if self.closing_app:
@@ -145,10 +123,13 @@ class Paint(Toplevel):
         self.draws_counter += 1
         self.get_next_input()
         # self.theta = int(np.arctan2(self.x_input, self.y_input))
+
         if self.change_input == 1:
-            if self.eraser_on:
+            if self.cursor_mode:
                 self.use_pen()
-            else:
+            elif self.eraser_on:
+                self.use_cursor()
+            else: # Pen mode
                 self.use_eraser()
             self.reset()
         # self.paint(self.x_input, self.y_input)
@@ -244,7 +225,19 @@ droplist.place(x=1000,y=300)
 
 
 
-
+def move_mouse_to(x, y):
+    # Create a new temporary root
+    temp_root = tkinter.Tk()
+    # Move it to +0+0 and remove the title bar
+    temp_root.overrideredirect(True)
+    # Make sure the window appears on the screen and handles the `overrideredirect`
+    temp_root.update()
+    # Generate the event as @abarnert did
+    temp_root.event_generate("<Motion>", warp=True, x=x, y=y)
+    # Make sure that tcl handles the event
+    temp_root.update()
+    # Destroy the root
+    temp_root.destroy()
 
 
 
