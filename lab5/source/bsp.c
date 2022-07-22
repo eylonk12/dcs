@@ -40,9 +40,10 @@ void GPIOconfig(void){
   JOY_DIR  &= ~0X38;               // P1.3 - P1.5 as input
 
   ///////////////////////     TIMER CONFIGURATIONS         //////////////////////////////////
-  TACCR0 = 0   ;                        // Initially, stop the Timer.
-  TACCTL0 = CCIE;                      // Enable interrupt for CCR0.
-  TACTL  = TASSEL_2 + TACLR + ID_3 + MC_1 + TAIE;     // SMCLK, clear counter , divide smclk by 3 to get 2^17 freq, UP MODE.
+  TACCR0 = 500-1;                         // Initially, stop the Timer. 1310-1 is the right one
+  TACCTL0 &= ~CCIE;
+  TACCTL0 |= CCIE;                      // Enable interrupt for CCR0.
+  TACTL  = TASSEL_2 + TACLR + ID_3 + MC_1 ;     // SMCLK, clear counter , divide smclk by 3 to get 2^17 freq, UP MODE.
 
 
     ///////////////////////     ADC CONFIGURATIONS         //////////////////////////////////

@@ -4,7 +4,7 @@
 // GLOBAL VARIABLES
 volatile unsigned int   state = 7;
 enum SYSmode lpm_mode;
-volatile unsigned int delay_int = 10;       // the default value for the delay
+volatile unsigned int delay_int = 1;       // the default value for the delay
 int steps;           // the default value for the delay
 volatile float deg = 270;                      // the default value deg
 volatile unsigned int current_step = 0;    // the value of the current step for restart
@@ -24,4 +24,6 @@ void main(void){
       deg = calc_degree();
       MOTOR_2_deg(deg);
   }
+
 }
+

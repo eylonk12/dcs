@@ -8,11 +8,11 @@
 #include "stdint.h"
 
 volatile int RGB_DATA = 0x01;    // initialize value for the RGB
-float normal = 5.68611111;               // the normal for sizing the deg
+float normal = 5.6861111;               // the normal for sizing the deg   2047 steps
 volatile float normal_degree = (180/3.141592654); // the normal for the deg
 int base_x = 477;
 int base_y = 471;
-volatile double x,y =0;  
+double x,y =0;  
 
 void progConfig(void){
     sysConfig();
@@ -29,17 +29,17 @@ void sleep(void){
 void MOTOR_move(int delay,int steps){
     for (int i = 0; i< steps; i++){
         motor_cycle_cw();
-        current_step++;
-        if (current_step == 2047)
-            current_step = 0;
+        current_step--;
+        if (current_step == 0)
+            current_step = 2047;
     }
 }
 void MOTOR_2_zero(int delay){
     while (current_step != 0) {
         motor_cycle_cw();
-        current_step++;
-        if (current_step == 2047)
-            current_step = 0;
+        current_step--;
+        if (current_step == 0)
+            break;
     }
 }
 void MOTOR_2_deg(float deg){

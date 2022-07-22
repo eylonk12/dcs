@@ -6,7 +6,7 @@
 volatile char POT_val[5];
 unsigned int i,j;
 unsigned int OFFCount;
-unsigned int dealy_cnt=-1;
+unsigned int dealy_cnt=7;
 int volatile MOTOR_DATA = 0x08 ;
 unsigned int adc[2] = {0};	// This will hold the x,y axis values
 int X_Axis = 0;
@@ -27,17 +27,25 @@ void sysConfig(void){
 void delay10MS(void){
     OFFCount = 0;          // Rest Over flow counter
     dealy_cnt = 0;
-    TACCR0 = 1310-1;       // Start Timer, Compare value for Up Mode to get 10ms delay per loop
+    TACCTL0 |= CCIE;
+    //TACTL |= TAIE;
+    //TACCTL0 |= CCIE;
+    //TACTL = TAIE;    // SMCLK, up mode, divide SMCLK to become 2^17, TA interrupt enable
+    //TACCR0 = 1310-1;       // Start Timer, Compare value for Up Mode to get 10ms delay per loop
 //Total count = TACCR0 + 1. Hence we need to subtract 1.
 }
 
 
 void Enable_TimerA_10ms(void){
+    TACCTL0 |= CCIE;
     TACTL = TAIE;    // SMCLK, up mode, divide SMCLK to become 2^17, TA interrupt enable
 }
 
 void Disable_TimerA_345(void){
-    TACCR0 = 0; //Stop Timer
+    TACCTL0 &= ~CCIE;
+    TACTL |= TACLR;
+    //TACTL &= ~TAIE;
+    //TACCR0 = 0; //Stop Timer
 }
 
 
@@ -96,10 +104,85 @@ void blink_RGB(int delay){
 void rotate_left(int delay){
     LED_OUT = 0xF0;
 }
+
+void enable_transmition(void){
+    UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+    IE2 |= UCA0TXIE;                          // Enable USCI_A0 TX interrupt
+}
+
+
 //**************************************************************
 //            Interrupts Service Routine
 //**************************************************************
+//**************************************************************
+//        UART-  Transmitter Interrupt Service Routine
+//**************************************************************
+#pragma vector=USCIAB0TX_VECTOR
+__interrupt void USCI0TX_ISR(void)
+{
+    if(state == 5){
+        TxBuffer = POT_val[i++];
+        if (i == sizeof POT_val -1){                         // TX over?
+            i = 0;
+            IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
+            IE2 |= UCA0RXIE;                             // Enable USCI_A0 RX interrupt
+            state = 8;
+        }
+    }
+    else if(state == 7){
+        TxBuffer = MENU[i++];
+        if (i == sizeof MENU - 1){                       // TX over?
+            i = 0;
+            IE2 &= ~UCA0TXIE;                        // Disable USCI_A0 TX interrupt
+            IE2 |= UCA0RXIE;                         // Enable USCI_A0 RX interrupt
+        }
+    }
+    else{
+        IE2 &= ~UCA0TXIE;
+    }
+}
 
+//**************************************************************
+//        UART-  Receiver Interrupt Service Routine
+//**************************************************************
+#pragma vector=USCIAB0RX_VECTOR
+__interrupt void USCI0RX_ISR(void)
+{
+    clear_rgb();
+    if(state == 4){
+        delay_str[j++] = RxBuffer;
+        if (delay_str[j-1] == '\0'){
+            j = 0;
+            delay_int = str2int(delay_str);
+            state = 8;
+        }
+    }
+    else if (state == 9){
+        asci_char[i++] = RxBuffer;
+        if (asci_char[i-1] == '\0'){
+            i = 0;
+        }
+        //asci_char = RxBuffer;   // 0 in ASCII is 48
+        lcd_clear();
+        if (asci_char[0] <= 57){
+            state = asci_char[0] - 48;
+        } else{
+            char asci_bin_char, mask;
+            int bit;
+            for (bit=0; bit < 7; bit++) {
+                mask = 1 << bit;
+                asci_bin_char = 48 + ((asci_char[0] & mask) >> bit);
+                lcd_data(asci_bin_char);
+            }
+        }
+        exit_lpm;                // Exit LPM0 on return to main
+    }else{
+        state = RxBuffer - 48;   // 0 in ASCII is 48
+        j = 0;
+        i = 0;
+        exit_lpm;                // Exit LPM0 on return to main
+    }
+}
 //**************************************************************
 //         ADC10 Interrupt Service Routine
 //**************************************************************
@@ -133,13 +216,16 @@ __interrupt void Timer_A0(void){
         switch (motor_dir){
             case 0:
                 motor_cycle_ccw();
+                current_step = (current_step +1)%2047;
                 step_cnt++;
                 break;
             case 1:
                 motor_cycle_cw();
+                current_step = (current_step -1 + 2047)%2047;
                 step_cnt++;
                 break;
         }
+        dealy_cnt = 0;
         // step_cnt ++;
         if(steps <= step_cnt){
             step_cnt = 0;
@@ -151,7 +237,7 @@ __interrupt void Timer_A0(void){
     }else{
         dealy_cnt++;
     }
-
+    __bic_SR_register_on_exit(LPM0_bits);         // Exit LPM0
 }
 
 
