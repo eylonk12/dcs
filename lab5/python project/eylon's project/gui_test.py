@@ -1,11 +1,13 @@
 from tkinter import *
 import tkinter.messagebox
-from tkinter.colorchooser import askcolor
 from PIL import Image,ImageTk
 import numpy as np
 import sys
 import serial as ser
 import time
+
+MOUSE_X_OFFSET = 50
+MOUSE_Y_OFFSET = MOUSE_X_OFFSET
 
 
 class Paint(Toplevel):
@@ -15,12 +17,7 @@ class Paint(Toplevel):
 
     def __init__(self):
         self.root = Tk()
-
-        # self.pen_button = Button(self.root, text='pen', command=self.use_pen)
-        # self.pen_button.grid(row=0, column=0)
-        #
-        # self.eraser_button = Button(self.root, text='eraser', command=self.use_eraser)
-        # self.eraser_button.grid(row=0, column=3)
+        self.root.geometry("600x600+{}+{}".format(MOUSE_X_OFFSET, MOUSE_Y_OFFSET))
 
         self.c = Canvas(self.root, bg='white', width=600, height=600)
         self.c.grid(row=1, columnspan=5)
@@ -68,7 +65,7 @@ class Paint(Toplevel):
         # self.activate_button(self.eraser_button, eraser_mode=True)
 
     def use_cursor(self):
-        self.old_x, self.old_y = None, None
+        # self.old_x, self.old_y = None, None
         self.cursor_mode = True
         self.eraser_on   = False
 
@@ -89,7 +86,7 @@ class Paint(Toplevel):
                                    width=self.line_width, fill=paint_color,
                                    capstyle=ROUND, smooth=TRUE, splinesteps=36)
         else:
-            move_mouse_to(x,y)
+            move_mouse_to(MOUSE_X_OFFSET+x,MOUSE_Y_OFFSET+y)
         self.old_x = x
         self.old_y = y
 
@@ -97,8 +94,6 @@ class Paint(Toplevel):
 
     # def reset(self, event):
     #     self.old_x, self.old_y = None, None
-    def reset(self):
-        self.old_x, self.old_y = None, None
 
     def get_next_input(self):
         self.theta  = self.draws_counter/10
@@ -125,13 +120,17 @@ class Paint(Toplevel):
         # self.theta = int(np.arctan2(self.x_input, self.y_input))
 
         if self.change_input == 1:
+            # if self.cursor_mode:
+            #     self.use_pen()
+            # elif self.eraser_on:
+            #     self.use_cursor()
+            # else: # Pen mode
+            #     self.use_eraser()
             if self.cursor_mode:
                 self.use_pen()
-            elif self.eraser_on:
+            else:
                 self.use_cursor()
-            else: # Pen mode
-                self.use_eraser()
-            self.reset()
+            # self.reset()
         # self.paint(self.x_input, self.y_input)
         self.paint(self.theta)
         root.after(10, self.get_next_coordinate)
