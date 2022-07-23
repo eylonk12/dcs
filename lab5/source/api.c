@@ -19,7 +19,7 @@ void progConfig(void){
 }
 
 void sleep(void){
-    enterLPM(mode0);
+    __bis_SR_register(CPUOFF + GIE);
 }
 
 

@@ -13,6 +13,7 @@ int X_Axis = 0;
 int Y_Axis = 0;
 char rec_mode;
 float        degree = 0;
+char tx_data = 'a';
 
 
 //**************************************************************
@@ -91,6 +92,19 @@ void adc10_config(){
     ADC10CTL0 = ADC10SHT_0 + ADC10IE;             //ADC10 Interrupt Enalbe
 }
 
+void DelayUs(unsigned int cnt){
+  
+	unsigned char i;
+        for(i=cnt ; i>0 ; i--) asm(" nop"); // tha command asm(" nop") takes raphly 1usec
+	
+}
+void DelayMs(unsigned int cnt){
+  
+	unsigned char i;
+        for(i=cnt ; i>0 ; i--) DelayUs(1000); // tha command asm(" nop") takes raphly 1usec
+	
+}
+
 void blink_RGB(int delay){
     int i;
     for (i =0; i<3; i++){
@@ -123,7 +137,12 @@ void enable_transmition(void){
 #pragma vector=USCIAB0TX_VECTOR
 __interrupt void USCI0TX_ISR(void)
 {
-    TxBuffer = i++;
+  if (tx_data == 'a'){
+    tx_data = 'b';
+  } else {
+    tx_data = 'a';
+  }
+    TxBuffer = tx_data;
     IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
 }
 
@@ -133,19 +152,20 @@ __interrupt void USCI0TX_ISR(void)
 #pragma vector=USCIAB0RX_VECTOR
 __interrupt void USCI0RX_ISR(void) {
     char x = RxBuffer;
+    __bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
     if (x == '#') {
         rec_mode = x;
         return;
     }
-    if (x == '\r') {
+    if (x == '$') {
         rec_mode = x;
         return;
     }
     if (rec_mode == '#') {
-        state = x;
+        state = x - 48;
         return;
     }
-    if (rec_mode == '\r') {
+    if (rec_mode == '$') {
         return;
     }
 }
@@ -162,7 +182,9 @@ __interrupt void ADC10_ISR(void){
 //*********************************************************************
 #pragma vector=PORT1_VECTOR
 __interrupt void PORT1_ISR(void){
-    if(JOY_INT_PEND & JOY_PB & state==2){
+    DelayMs(1);
+    JOY_INT_PEND &= ~0X20;
+    if(state==2){
          return ;            // here we need to send click to the PC to change mode
     }
 }

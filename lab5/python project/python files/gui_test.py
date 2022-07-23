@@ -137,7 +137,7 @@ class Paint(Toplevel):
 
 
 
-serial_comm = ser.Serial('COM3', baudrate=9600, bytesize=ser.EIGHTBITS,
+serial_comm = ser.Serial('COM5', baudrate=9600, bytesize=ser.EIGHTBITS,
                          parity=ser.PARITY_NONE, stopbits=ser.STOPBITS_ONE,
                          timeout=1)
 serial_comm.reset_input_buffer()
