@@ -27,9 +27,13 @@ extern void GPIOconfig(void);
 #define RGB_OUT            P1OUT
 
 ////////////////// JOYTSTICK DEFINES //////////////////
+#define JOY_IN             P1IN
+#define JOY_INT_PEND       P1IFG
+#define JOY_IE             P1IE
+#define JOY_IES            P1IES
 #define JOY_SEL            P1SEL
 #define JOY_DIR            P1DIR
-#define JOY_IN             P1IN
+#define JOY_PB             0x20  // P1.5 is PushButton from joystick
 
 ////////////////// MOTOR STEPPER DEFINES //////////////////
 #define MOTOR_SEL            P2SEL

@@ -8,6 +8,7 @@
 //                 GLOBAL VARIABLES
 //**************************************************************
 enum SYSmode{mode0,mode1,mode2,mode3,mode4}; // global variable
+extern char rec_mode;
 extern volatile unsigned int state;
 extern volatile int top_to_bottom;                           // going to be the highest
 extern volatile int bottom_to_top;                           // going to be 0

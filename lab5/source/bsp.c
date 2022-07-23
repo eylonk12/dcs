@@ -28,7 +28,7 @@ void GPIOconfig(void){
   UCA0BR0 = 104;
   UCA0BR1 = 0x00;
 
-  UCA0MCTL = UCBRS0;
+  UCA0MCTL = UCBRS0;   // start bit 1
   ////////////////////////////////////////////////////////////////////////////////////
     
   _BIS_SR(GIE);                     // enable interrupts globally
@@ -36,8 +36,14 @@ void GPIOconfig(void){
   ////////////////////////////////////////////////////////////////////////////////////
 
   ///////////////////////     JOYSTICK CONFIGURATIONS         //////////////////////////////////
-  JOY_SEL  &= ~0x38;               // P1.3 - P1.5 as GPIO
-  JOY_DIR  &= ~0X38;               // P1.3 - P1.5 as input
+  JOY_SEL      &= ~0x38;               // P1.3 - P1.5 as GPIO
+  JOY_DIR      &= ~0X38;               // P1.3 - P1.5 as input
+  JOY_IES      &= ~0x20;               // choose P1.5 as pull-down mode
+  JOY_IE       |= 0x20;                // interrupt enable for joystick pushbutton
+  JOY_INT_PEND &= ~0X20;               // clear pending interrupts from joystick
+
+
+
 
   ///////////////////////     TIMER CONFIGURATIONS         //////////////////////////////////
   TACCR0 = 500-1;                         // Initially, stop the Timer. 1310-1 is the right one

@@ -11,6 +11,7 @@ int volatile MOTOR_DATA = 0x08 ;
 unsigned int adc[2] = {0};	// This will hold the x,y axis values
 int X_Axis = 0;
 int Y_Axis = 0;
+char rec_mode;
 float        degree = 0;
 
 
@@ -114,73 +115,54 @@ void enable_transmition(void){
 //**************************************************************
 //            Interrupts Service Routine
 //**************************************************************
-//**************************************************************
-//        UART-  Transmitter Interrupt Service Routine
-//**************************************************************
-#pragma vector=USCIAB0TX_VECTOR
-__interrupt void USCI0TX_ISR(void)
-{
-    if(state == 5){
-        TxBuffer = POT_val[i++];
-        if (i == sizeof POT_val -1){                         // TX over?
-            i = 0;
-            IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
-            IE2 |= UCA0RXIE;                             // Enable USCI_A0 RX interrupt
-            state = 8;
-        }
-    }
-    else if(state == 7){
-        TxBuffer = MENU[i++];
-        if (i == sizeof MENU - 1){                       // TX over?
-            i = 0;
-            IE2 &= ~UCA0TXIE;                        // Disable USCI_A0 TX interrupt
-            IE2 |= UCA0RXIE;                         // Enable USCI_A0 RX interrupt
-        }
-    }
-    else{
-        IE2 &= ~UCA0TXIE;
-    }
-}
+////**************************************************************
+////        UART-  Transmitter Interrupt Service Routine
+////**************************************************************
+//#pragma vector=USCIAB0TX_VECTOR
+//__interrupt void USCI0TX_ISR(void)
+//{
+//    if(state == 5){
+//        TxBuffer = POT_val[i++];
+//        if (i == sizeof POT_val -1){                         // TX over?
+//            i = 0;
+//            IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
+//            IE2 |= UCA0RXIE;                             // Enable USCI_A0 RX interrupt
+//            state = 8;
+//        }
+//    }
+//    else if(state == 7){
+//        TxBuffer = MENU[i++];
+//        if (i == sizeof MENU - 1){                       // TX over?
+//            i = 0;
+//            IE2 &= ~UCA0TXIE;                        // Disable USCI_A0 TX interrupt
+//            IE2 |= UCA0RXIE;                         // Enable USCI_A0 RX interrupt
+//        }
+//    }
+//    else{
+//        IE2 &= ~UCA0TXIE;
+//    }
+//}
 
 //**************************************************************
 //        UART-  Receiver Interrupt Service Routine
 //**************************************************************
 #pragma vector=USCIAB0RX_VECTOR
-__interrupt void USCI0RX_ISR(void)
-{
-    clear_rgb();
-    if(state == 4){
-        delay_str[j++] = RxBuffer;
-        if (delay_str[j-1] == '\0'){
-            j = 0;
-            delay_int = str2int(delay_str);
-            state = 8;
-        }
+__interrupt void USCI0RX_ISR(void) {
+    char x = RxBuffer;
+    if (x == '#') {
+        rec_mode = x;
+        return;
     }
-    else if (state == 9){
-        asci_char[i++] = RxBuffer;
-        if (asci_char[i-1] == '\0'){
-            i = 0;
-        }
-        //asci_char = RxBuffer;   // 0 in ASCII is 48
-        lcd_clear();
-        if (asci_char[0] <= 57){
-            state = asci_char[0] - 48;
-        } else{
-            char asci_bin_char, mask;
-            int bit;
-            for (bit=0; bit < 7; bit++) {
-                mask = 1 << bit;
-                asci_bin_char = 48 + ((asci_char[0] & mask) >> bit);
-                lcd_data(asci_bin_char);
-            }
-        }
-        exit_lpm;                // Exit LPM0 on return to main
-    }else{
-        state = RxBuffer - 48;   // 0 in ASCII is 48
-        j = 0;
-        i = 0;
-        exit_lpm;                // Exit LPM0 on return to main
+    if (x == '\r') {
+        rec_mode = x;
+        return;
+    }
+    if (rec_mode == '#') {
+        state = x;
+        return;
+    }
+    if (rec_mode == '\r') {
+        return;
     }
 }
 //**************************************************************
@@ -190,6 +172,26 @@ __interrupt void USCI0RX_ISR(void)
 __interrupt void ADC10_ISR(void){
     __bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
 }
+
+//*********************************************************************
+//            Port1 Interrupt Service Rotine
+//*********************************************************************
+#pragma vector=PORT1_VECTOR
+__interrupt void PORT1_ISR(void){
+    if(JOY_INT_PEND & JOY_PB & state==2){
+         return ;            // here we need to send click to the PC to change mode
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 //**************************************************************
 //            Enter from LPM0 mode and enable global interrupts
