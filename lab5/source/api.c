@@ -27,7 +27,8 @@ void sleep(void){
 //             MOTOR function
 //**************************************************************
 void MOTOR_move(int delay,int steps){
-    for (int i = 0; i< steps; i++){
+    int i;
+    for (i = 0; i< steps; i++){
         motor_cycle_cw();
         current_step--;
         if (current_step == 0)
@@ -98,7 +99,8 @@ double calc_degree(void){
 void RGBBlink(int count, int delay){
 
     clear_all();
-    for (int i =0; i<count; i++){
+    int i;
+    for (i =0; i<count; i++){
         blink_RGB(delay);
     }
     _BIS_SR(GIE);        // check with eylon if neccery
@@ -106,7 +108,8 @@ void RGBBlink(int count, int delay){
 void rlc_leds(int count, int delay){
 
     clear_all();
-    for (int i =0; i<count; i++){
+    int i;
+    for (i =0; i<count; i++){
         rotate_left(delay);
     }
     _BIS_SR(GIE);        // check with eylon if neccery

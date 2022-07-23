@@ -29,6 +29,11 @@ void main(void){
                 joystick_2_motor(delay_int);
                 deg = calc_degree();
                 MOTOR_2_deg(deg);
+
+                // Temporary section for UART checking.
+                UCA0CTL1 &= ~UCSWRST; // **Initialize USCI state machine**
+                IE2 |= UCA0RXIE;      // Enable USCI_A0 RX interrupt
+                IE2 |= UCA0TXIE;      // Enable USCI_A0 TX interrupt
                 break;
 
             case 2:

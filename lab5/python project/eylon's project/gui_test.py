@@ -9,6 +9,20 @@ import time
 MOUSE_X_OFFSET = 50
 MOUSE_Y_OFFSET = MOUSE_X_OFFSET
 
+def transmit_data(data, delay=0.25):
+    # Writing the state and possibly the delay value.
+    serial_comm.write(bytes(data, 'ascii'))
+    while serial_comm.out_waiting:  # while the output buffer isn't empty
+        time.sleep(delay)  # delay for accurate read/write operations on both
+
+def receive_data(delay=0.25):
+    # Waiting until some data is received, after that happens we read the ecpected data according to
+    # state and then checking if the RX buffer is empty or we need to continue reading from it.
+    while True:
+        if serial_comm.in_waiting:
+            x = serial_comm.read(size=1).decode("ascii")  # read 3 byte from the input buffer
+            time.sleep(delay)  # delay for accurate read/write operations on both ends
+
 
 class Paint(Toplevel):
 
@@ -123,11 +137,16 @@ class Paint(Toplevel):
 
 
 
-serial_comm = ser.Serial('COM5', baudrate=9600, bytesize=ser.EIGHTBITS,
+serial_comm = ser.Serial('COM3', baudrate=9600, bytesize=ser.EIGHTBITS,
                          parity=ser.PARITY_NONE, stopbits=ser.STOPBITS_ONE,
                          timeout=1)
 serial_comm.reset_input_buffer()
 serial_comm.reset_output_buffer()
+
+while True:
+    # data = input("What do you want to transmit?\n")
+    # transmit_data(data)
+    receive_data()
 
 root = Tk()
 
@@ -158,9 +177,7 @@ ln = StringVar()
 
 def manual_control_of_motor_based_machine():
     tkinter.messagebox.showinfo("manual control of motor based machine",'now the joystick controlling the pointer on the motor')
-    while True:
-        data = input("What do you want to transmit?")
-        transmit_data(data)
+
 
 
 def Joystick_based_PC_painter():
@@ -179,11 +196,6 @@ def exit1():
     exit()
 
 
-def transmit_data(data, delay=1):
-    # Writing the state and possibly the delay value.
-    serial_comm.write(bytes(data, 'ascii'))
-    while serial_comm.out_waiting:  # while the output buffer isn't empty
-        time.sleep(delay)  # delay for accurate read/write operations on both
 
 
 label_0 = Label(root,text="Final project",relief="solid",width=20,font=("arial",19,"bold"))

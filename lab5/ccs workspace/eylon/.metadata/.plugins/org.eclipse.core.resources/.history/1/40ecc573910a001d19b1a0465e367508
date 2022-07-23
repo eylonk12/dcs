@@ -1,0 +1,44 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+C:/Users/eylonk/dcs/lab5/source/api.c \
+C:/Users/eylonk/dcs/lab5/source/bsp.c \
+C:/Users/eylonk/dcs/lab5/source/halGPIO.c \
+../souce/main.c 
+
+C_DEPS += \
+./souce/api.d \
+./souce/bsp.d \
+./souce/halGPIO.d \
+./souce/main.d 
+
+OBJS += \
+./souce/api.obj \
+./souce/bsp.obj \
+./souce/halGPIO.obj \
+./souce/main.obj 
+
+OBJS__QUOTED += \
+"souce\api.obj" \
+"souce\bsp.obj" \
+"souce\halGPIO.obj" \
+"souce\main.obj" 
+
+C_DEPS__QUOTED += \
+"souce\api.d" \
+"souce\bsp.d" \
+"souce\halGPIO.d" \
+"souce\main.d" 
+
+C_SRCS__QUOTED += \
+"C:/Users/eylonk/dcs/lab5/source/api.c" \
+"C:/Users/eylonk/dcs/lab5/source/bsp.c" \
+"C:/Users/eylonk/dcs/lab5/source/halGPIO.c" \
+"../souce/main.c" 
+
+

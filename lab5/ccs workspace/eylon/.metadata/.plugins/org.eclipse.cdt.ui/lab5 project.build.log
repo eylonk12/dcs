@@ -1,0 +1,136 @@
+
+**** Build of configuration Debug__TI for project lab5 project ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+'Building file: "C:/Users/eylonk/dcs/lab5/source/bsp.c"'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="C:/ti/ccsv7/ccs_base/msp430/include" --include_path="C:/Users/eylonk/dcs/lab5/ccs workspace/eylon/lab5 project" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="source/bsp.d_raw" --obj_directory="source"  "C:/Users/eylonk/dcs/lab5/source/bsp.c"
+"C:/Users/eylonk/dcs/lab5/source/bsp.c", line 13: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+'Finished building: "C:/Users/eylonk/dcs/lab5/source/bsp.c"'
+ 
+'Building file: "C:/Users/eylonk/dcs/lab5/source/main.c"'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="C:/ti/ccsv7/ccs_base/msp430/include" --include_path="C:/Users/eylonk/dcs/lab5/ccs workspace/eylon/lab5 project" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="source/main.d_raw" --obj_directory="source"  "C:/Users/eylonk/dcs/lab5/source/main.c"
+"C:/Users/eylonk/dcs/lab5/source/main.c", line 6: remark #1535-D: (ULP 8.1) variable "lpm_mode" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"C:/Users/eylonk/dcs/lab5/source/main.c", line 11: remark #1535-D: (ULP 8.1) variable "step_cnt" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"C:/Users/eylonk/dcs/lab5/source/main.c", line 30 (col. 21): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/main.c", line 31 (col. 28): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+'Finished building: "C:/Users/eylonk/dcs/lab5/source/main.c"'
+ 
+'Building file: "C:/Users/eylonk/dcs/lab5/source/halGPIO.c"'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="C:/ti/ccsv7/ccs_base/msp430/include" --include_path="C:/Users/eylonk/dcs/lab5/ccs workspace/eylon/lab5 project" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="source/halGPIO.d_raw" --obj_directory="source"  "C:/Users/eylonk/dcs/lab5/source/halGPIO.c"
+"C:/Users/eylonk/dcs/lab5/source/halGPIO.c", line 96: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"C:/Users/eylonk/dcs/lab5/source/halGPIO.c", line 222: remark #1538-D: (ULP 10.1) ISR Timer_A0 calls function motor_cycle_ccw. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"C:/Users/eylonk/dcs/lab5/source/halGPIO.c", line 223: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/halGPIO.c", line 227: remark #1538-D: (ULP 10.1) ISR Timer_A0 calls function motor_cycle_cw. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"C:/Users/eylonk/dcs/lab5/source/halGPIO.c", line 228: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/halGPIO.c", line 239: remark #1538-D: (ULP 10.1) ISR Timer_A0 calls function Disable_TimerA_345. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"C:/Users/eylonk/dcs/lab5/source/halGPIO.c", line 8: remark #1535-D: (ULP 8.1) variable "OFFCount" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"C:/Users/eylonk/dcs/lab5/source/halGPIO.c", line 15: remark #1535-D: (ULP 8.1) variable "degree" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+'Finished building: "C:/Users/eylonk/dcs/lab5/source/halGPIO.c"'
+ 
+'Building file: "C:/Users/eylonk/dcs/lab5/source/api.c"'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="C:/ti/ccsv7/ccs_base/msp430/include" --include_path="C:/Users/eylonk/dcs/lab5/ccs workspace/eylon/lab5 project" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="source/api.d_raw" --obj_directory="source"  "C:/Users/eylonk/dcs/lab5/source/api.c"
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 31: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 49: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 50: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 51: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 53: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 54: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 84: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 87: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 89: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 103: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 112: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 11: remark #1535-D: (ULP 8.1) variable "normal" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 13: remark #1535-D: (ULP 8.1) variable "base_x" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 14: remark #1535-D: (ULP 8.1) variable "base_y" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 203 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 204 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 205 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 206 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 207 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 208 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 210 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 211 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 212 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 213 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 214 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 215 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 216 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 217 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 218 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 220 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 221 (col. 11): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 222 (col. 11): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 224 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 225 (col. 11): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 226 (col. 11): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 228 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 229 (col. 11): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 230 (col. 11): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 232 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 233 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 234 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 235 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 236 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 237 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 243 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 244 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 245 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 246 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 247 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 248 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 257 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 259 (col. 9): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 261 (col. 13): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 265 (col. 9): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 267 (col. 13): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 274 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 276 (col. 9): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 278 (col. 13): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 282 (col. 9): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 284 (col. 13): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 291 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 293 (col. 9): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 295 (col. 13): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 299 (col. 9): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include/_defs.h", line 301 (col. 13): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 46 (col. 6): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 49 (col. 20): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 50 (col. 31): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 51 (col. 39): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 53 (col. 40): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 54 (col. 34): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 81 (col. 8): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 82 (col. 7): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 83 (col. 11): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 84 (col. 26): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 85 (col. 7): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 86 (col. 27): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 87 (col. 28): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 88 (col. 26): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 89 (col. 12): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 90 (col. 16): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"C:/Users/eylonk/dcs/lab5/source/api.c", line 91 (col. 16): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+'Finished building: "C:/Users/eylonk/dcs/lab5/source/api.c"'
+ 
+'Building target: "lab5 project.out"'
+'Invoking: MSP430 Linker'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"lab5 project.map" --heap_size=80 --stack_size=80 -i"C:/ti/ccsv7/ccs_base/msp430/include" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="lab5 project_linkInfo.xml" --use_hw_mpy=none --rom_model -o "lab5 project.out" "./source/api.obj" "./source/bsp.obj" "./source/halGPIO.obj" "./source/main.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+"../lnk_msp430g2553.cmd", line 98: error #10099-D: program will not fit into available memory.  placement with alignment fails for section ".const" size 0xc8 .  Available memory ranges:
+   FLASH        size: 0x3fde       unused: 0x3c         max hole: 0x3c      
+error #10010: errors encountered during linking; "lab5 project.out" not built
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+
+>> Compilation failure
+makefile:146: recipe for target 'lab5 project.out' failed
+gmake[1]: *** [lab5 project.out] Error 1
+makefile:142: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****

@@ -90,8 +90,10 @@ void adc10_config(){
     ADC10CTL1 = INCH_3 + ADC10SSEL_0;             // Repeat single channel, A3, ADC10OSC
     ADC10CTL0 = ADC10SHT_0 + ADC10IE;             //ADC10 Interrupt Enalbe
 }
+
 void blink_RGB(int delay){
-    for (int i =0; i<3; i++){
+    int i;
+    for (i =0; i<3; i++){
         if (RGB_DATA == 0x01){
             RGB_DATA = 0x80;
         }else if(RGB_DATA == 0x80){
@@ -118,30 +120,12 @@ void enable_transmition(void){
 ////**************************************************************
 ////        UART-  Transmitter Interrupt Service Routine
 ////**************************************************************
-//#pragma vector=USCIAB0TX_VECTOR
-//__interrupt void USCI0TX_ISR(void)
-//{
-//    if(state == 5){
-//        TxBuffer = POT_val[i++];
-//        if (i == sizeof POT_val -1){                         // TX over?
-//            i = 0;
-//            IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
-//            IE2 |= UCA0RXIE;                             // Enable USCI_A0 RX interrupt
-//            state = 8;
-//        }
-//    }
-//    else if(state == 7){
-//        TxBuffer = MENU[i++];
-//        if (i == sizeof MENU - 1){                       // TX over?
-//            i = 0;
-//            IE2 &= ~UCA0TXIE;                        // Disable USCI_A0 TX interrupt
-//            IE2 |= UCA0RXIE;                         // Enable USCI_A0 RX interrupt
-//        }
-//    }
-//    else{
-//        IE2 &= ~UCA0TXIE;
-//    }
-//}
+#pragma vector=USCIAB0TX_VECTOR
+__interrupt void USCI0TX_ISR(void)
+{
+    TxBuffer = i++;
+    IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
+}
 
 //**************************************************************
 //        UART-  Receiver Interrupt Service Routine
