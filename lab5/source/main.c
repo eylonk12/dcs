@@ -2,7 +2,7 @@
 #include  "../header/api.h"    		// private library - API layer
 
 // GLOBAL VARIABLES
-volatile unsigned int   state = 0;
+volatile unsigned int   state = 1;
 enum SYSmode lpm_mode;
 volatile unsigned int delay_int = 1;       // the default value for the delay
 int steps;           // the default value for the delay

@@ -39,7 +39,7 @@ void GPIOconfig(void){
   JOY_SEL      &= ~0x38;               // P1.3 - P1.5 as GPIO
   JOY_DIR      &= ~0X38;               // P1.3 - P1.5 as input
   JOY_IES      &= ~0x20;               // choose P1.5 as pull-down mode
-  JOY_IE       |= 0x20;                // interrupt enable for joystick pushbutton
+//  JOY_IE       |= 0x20;                // interrupt enable for joystick pushbutton
   JOY_INT_PEND &= ~0X20;               // clear pending interrupts from joystick
 
 

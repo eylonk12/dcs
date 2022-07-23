@@ -6,7 +6,7 @@
 volatile char POT_val[5];
 unsigned int i,j;
 unsigned int OFFCount;
-unsigned int dealy_cnt=7;
+unsigned int dealy_cnt=0;
 int volatile MOTOR_DATA = 0x08 ;
 unsigned int adc[2] = {0};	// This will hold the x,y axis values
 int X_Axis = 0;
