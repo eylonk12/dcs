@@ -144,9 +144,9 @@ serial_comm.reset_input_buffer()
 serial_comm.reset_output_buffer()
 
 while True:
-    # data = input("What do you want to transmit?\n")
-    # transmit_data(data)
-    receive_data()
+    data = input("What do you want to transmit?\n")
+    transmit_data(data)
+    # receive_data()
 
 root = Tk()
 
