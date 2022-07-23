@@ -31,8 +31,8 @@ class Paint(Toplevel):
         self.draws_counter = 0
         self.radius_mode  = 0
 
-        # serial_comm.reset_input_buffer()
-        # serial_comm.reset_output_buffer()
+        serial_comm.reset_input_buffer()
+        serial_comm.reset_output_buffer()
 
         self.setup()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -50,22 +50,16 @@ class Paint(Toplevel):
         self.color = self.DEFAULT_COLOR
         self.eraser_on = False
         self.cursor_mode = False
-        # self.active_button = self.pen_button
-        # self.c.bind('<B1-Motion>', self.paint)
-        # self.c.bind('<ButtonRelease-1>', self.reset)
 
     def use_pen(self):
         self.cursor_mode = False
         self.eraser_on   = False
-        # self.activate_button(self.pen_button)
 
     def use_eraser(self):
         self.cursor_mode = False
         self.eraser_on   = True
-        # self.activate_button(self.eraser_button, eraser_mode=True)
 
     def use_cursor(self):
-        # self.old_x, self.old_y = None, None
         self.cursor_mode = True
         self.eraser_on   = False
 
@@ -90,11 +84,6 @@ class Paint(Toplevel):
         self.old_x = x
         self.old_y = y
 
-
-
-    # def reset(self, event):
-    #     self.old_x, self.old_y = None, None
-
     def get_next_input(self):
         self.theta  = self.draws_counter/10
         if self.radius_mode == 0:
@@ -110,14 +99,12 @@ class Paint(Toplevel):
         else:
             self.change_input = 0
 
-
     def get_next_coordinate(self):
         if self.closing_app:
             return
 
         self.draws_counter += 1
         self.get_next_input()
-        # self.theta = int(np.arctan2(self.x_input, self.y_input))
 
         if self.change_input == 1:
             # if self.cursor_mode:
@@ -130,28 +117,17 @@ class Paint(Toplevel):
                 self.use_pen()
             else:
                 self.use_cursor()
-            # self.reset()
         # self.paint(self.x_input, self.y_input)
         self.paint(self.theta)
         root.after(10, self.get_next_coordinate)
 
-        # while True:
-        #     if serial_comm.in_waiting:
-        #         menu = serial_comm.read_until('\r').decode("ascii")
-        #
-        #     else:
-        #         pot = serial_comm.read(size=5).decode("ascii")  # read 3 byte from the input buffer
-        #         pot = pot.replace('\0', '')
-        #
-        #         if not serial_comm.in_waiting:
-        #             return
 
 
-# serial_comm = ser.Serial('COM5', baudrate=9600, bytesize=ser.EIGHTBITS,
-#                          parity=ser.PARITY_NONE, stopbits=ser.STOPBITS_ONE,
-#                          timeout=1)
-# serial_comm.reset_input_buffer()
-# serial_comm.reset_output_buffer()
+serial_comm = ser.Serial('COM5', baudrate=9600, bytesize=ser.EIGHTBITS,
+                         parity=ser.PARITY_NONE, stopbits=ser.STOPBITS_ONE,
+                         timeout=1)
+serial_comm.reset_input_buffer()
+serial_comm.reset_output_buffer()
 
 root = Tk()
 
@@ -161,9 +137,8 @@ root.title("Final project")
 imge = Image.open("C:/Users/eylonk/dcs/lab5/python project/eylon's project/msp430.jpg")
 photo=ImageTk.PhotoImage(imge)
 
-lab=Label(image=photo)
+lab = Label(image=photo)
 lab.pack()
-
 
 menu = Menu(root)
 root.config(menu=menu)
@@ -180,21 +155,35 @@ subm2.add_command(label="About")
 fn = StringVar()
 ln = StringVar()
 
+
 def manual_control_of_motor_based_machine():
     tkinter.messagebox.showinfo("manual control of motor based machine",'now the joystick controlling the pointer on the motor')
+    while True:
+        data = input("What do you want to transmit?")
+        transmit_data(data)
 
 
 def Joystick_based_PC_painter():
     Paint()
 
+
 def stepper_motor_calibration():
     tkinter.messagebox.showinfo("Stepper Motor Calibration",'the pointer are going to 0 degree \n the number on steps is: 2050\n every step angle is: 0.1756 degree')
+
 
 def script_mode():
     exit()
 
+
 def exit1():
     exit()
+
+
+def transmit_data(data, delay=1):
+    # Writing the state and possibly the delay value.
+    serial_comm.write(bytes(data, 'ascii'))
+    while serial_comm.out_waiting:  # while the output buffer isn't empty
+        time.sleep(delay)  # delay for accurate read/write operations on both
 
 
 label_0 = Label(root,text="Final project",relief="solid",width=20,font=("arial",19,"bold"))
@@ -221,9 +210,6 @@ var.set("Select script")
 droplist.config(width=15)
 droplist.place(x=1000,y=300)
 
-
-
-
 def move_mouse_to(x, y):
     # Create a new temporary root
     temp_root = tkinter.Tk()
@@ -237,15 +223,6 @@ def move_mouse_to(x, y):
     temp_root.update()
     # Destroy the root
     temp_root.destroy()
-
-
-
-
-
-
-
-
-
 
 
 root.mainloop()
