@@ -15,13 +15,21 @@ def transmit_data(data, delay=0.25):
     while serial_comm.out_waiting:  # while the output buffer isn't empty
         time.sleep(delay)  # delay for accurate read/write operations on both
 
-def receive_data(delay=0.25):
+def receive_data(serial_comm,delay=0.25):
     # Waiting until some data is received, after that happens we read the ecpected data according to
     # state and then checking if the RX buffer is empty or we need to continue reading from it.
+    str = ""
     while True:
         if serial_comm.in_waiting:
             x = serial_comm.read(size=1).decode("ascii")  # read 3 byte from the input buffer
+            # print(x)
             time.sleep(delay)  # delay for accurate read/write operations on both ends
+            if x != '#':
+                str += x
+            else:
+                print(str)
+                str = ""
+
 
 
 class Paint(Toplevel):
@@ -144,9 +152,9 @@ serial_comm.reset_input_buffer()
 serial_comm.reset_output_buffer()
 
 while True:
-    data = input("What do you want to transmit?\n")
-    transmit_data(data)
-    # receive_data()
+    #data = input("What do you want to transmit?\n")
+    #transmit_data(data)
+    receive_data(serial_comm)
 
 root = Tk()
 

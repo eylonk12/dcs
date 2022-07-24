@@ -2,9 +2,9 @@
 #include  "../header/api.h"    		// private library - API layer
 
 // GLOBAL VARIABLES
-volatile unsigned int   state = 1;
+volatile unsigned int   state = 2;
 enum SYSmode lpm_mode;
-volatile unsigned int delay_int = 1;       // the default value for the delay
+volatile unsigned int delay_int = 10;       // the default value for the delay
 int steps;           // the default value for the delay
 volatile float deg = 270;                      // the default value deg
 volatile unsigned int current_step = 0;    // the value of the current step for restart
@@ -37,10 +37,14 @@ void main(void){
                 break;
 
             case 2:
+                joystick_2_motor(delay_int);
+                deg = calc_degree();
+                delay10ms();
+                sleep();
                 break;
 
             case 3:               // Stepper Motor Calibration:
-
+                MOTOR_move();
 
                 break;
 

@@ -39,7 +39,7 @@ void GPIOconfig(void){
   JOY_SEL      &= ~0x38;               // P1.3 - P1.5 as GPIO
   JOY_DIR      &= ~0X38;               // P1.3 - P1.5 as input
   JOY_IES      |=  0x20;               // choose P1.5 as pull-up mode
-  JOY_IE       |=  0x20;                // interrupt enable for joystick pushbutton
+  JOY_IE       |=  0x20;               // interrupt enable for joystick pushbutton
   JOY_INT_PEND &= ~0X20;               // clear pending interrupts from joystick
 
 
@@ -56,8 +56,8 @@ void GPIOconfig(void){
   ADC10AE0 |=  0X18;               // P1.3, P1.4 ADC option select x and y
   ADC10CTL1 = INCH_4 + CONSEQ_3+ ADC10SSEL_0;            // A1/A0, repeated sequence
   ADC10CTL0 = ADC10SHT_0 + MSC + ADC10ON + ADC10IE;     // SHT for sample and hold, MSC- multiple sample and conversion,interrupt enable
-  ADC10DTC1 = 0x02;                         // 2 conversions
-  ADC10AE0 |= 0x18;                         // Disable digital I/O on P1.3 to P1.4
+  ADC10DTC1 = 0x02;                         // 3 conversions
+  //ADC10AE0 |= 0x38;                         // Disable digital I/O on P1.3 to P1.5
 
   ///////////////////////     MOTOR CONFIGURATIONS         //////////////////////////////////
   MOTOR_SEL &= ~0x0F;                 // P2.0 - P2.3 set as GPIO

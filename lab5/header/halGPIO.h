@@ -17,8 +17,9 @@
 //**************************************************************
 extern volatile unsigned int  state;            // Current state global variable
 extern enum SYSmode lpm_mode; // global variable
-extern volatile char delay_str[10];   // data for buffer
+extern char deg_val[4];   // data for buffer
 extern volatile unsigned int delay_int;   // data for buffer
+extern volatile float deg;   // data for buffer
 extern volatile unsigned int current_step ;   // current step
 extern volatile int RGB_DATA ; // the data to RGB output
 extern volatile int MOTOR_DATA ; // the data to MOTOR output
@@ -39,6 +40,7 @@ __interrupt void ADC10_ISR(void);
 // functions for states
 //**************************************************************
 extern void clear_rgb(void);
+extern void int2str(char *str, unsigned int num);
 extern void blink_RGB(int delay);
 extern void rotate_left(int delay);
 extern void SRC_from_MOTOR(void);
@@ -52,6 +54,7 @@ extern void motor_cycle_ccw(void);
 extern void read_from_juystick(void);
 extern void Enable_TimerA_10ms(void);
 extern void Disable_TimerA_345(void);
+extern void enable_transmition(void);
 extern void blink_RGB(int delay);
 extern unsigned int step_cnt ;           // the value of the current step for restart
 extern volatile int motor_dir;                       // direction of the motor movement

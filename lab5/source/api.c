@@ -26,14 +26,13 @@ void sleep(void){
 //**************************************************************
 //             MOTOR function
 //**************************************************************
-void MOTOR_move(int delay,int steps){
-    int i;
-    for (i = 0; i< steps; i++){
-        motor_cycle_cw();
-        current_step--;
-        if (current_step == 0)
-            current_step = 2047;
+void MOTOR_move(void){
+    current_step = 0;
+    delay10MS();                     // SMCLK, up mode, divide SMCLK to become 2^17, TA interrupt enable
+    while (state == 3){
+        __bis_SR_register(CPUOFF + GIE);      // LPM0, ADC10_ISR will force exit
     }
+    Disable_TimerA_345();
 }
 void MOTOR_2_zero(int delay){
     while (current_step != 0) {
@@ -78,21 +77,28 @@ void joystick_2_motor(int delay){
     read_from_juystick();
 }
 
-double calc_degree(void){
+double calc_degree(void) {
     x = X_Axis - base_x;
-    if( x ==0)
-      return current_step/normal;
+    if (x == 0)
+        return current_step / normal;
     y = Y_Axis - base_y;
-    if (pow(x,2)+pow(y,2) <pow(ERROR_RADIUS,2))
-        return current_step/normal;
-    double degree = atan2(y,x);
-    degree = degree*normal_degree;
-    if (degree <0)
-        degree = degree+360;
+    if (pow(x, 2) + pow(y, 2) < pow(ERROR_RADIUS, 2))
+        return current_step / normal;
+    double degree = atan2(y, x);
+    degree = degree * normal_degree;
+    if (degree < 0)
+        degree = degree + 360;
     return degree;
-
-
 }
+void delay10ms(void){
+    delay10MS();
+}
+
+//void send_degree(float deg){
+////    int deg_int = (int)deg;
+////    int2str(deg_val,deg_int);
+////    enable_transmition();
+//}
 //**************************************************************
 //             script functions
 //**************************************************************
