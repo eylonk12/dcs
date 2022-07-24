@@ -255,16 +255,7 @@ __interrupt void Timer_A0(void){
         }
     }
     if(state == 2){
-        if (dealy_cnt == delay_int){
-            int deg_int = (int)deg;
-            int2str(deg_val,deg_int);
-            enable_transmition();
-            dealy_cnt =0;
-            return ;
-        }else{
-            dealy_cnt++;
-            return;
-        }
+        Disable_TimerA_345();
     }
     if (dealy_cnt == delay_int){
         switch (motor_dir){

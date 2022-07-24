@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d2a25927-ab87-4536-847e-db4766e9f74f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../../lab3/final files lab 3/IAR/header/bsp.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../../lab3/final files lab 3/IAR/header/bsp.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python files/gui_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python files/gui_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../header/api.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../header/api.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../source/api.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../source/api.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../source/halGPIO.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../source/halGPIO.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../source/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../source/main.c" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../python files/gui_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+            <state relative-caret-position="264">
+              <caret line="29" column="26" lean-forward="true" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -213,8 +215,8 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -226,6 +228,17 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../python files/gui_test.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/gui_test.py">
@@ -257,8 +270,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../python files/gui_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+        <state relative-caret-position="264">
+          <caret line="29" column="26" lean-forward="true" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>

@@ -31,9 +31,10 @@ extern void joystick_2_motor(int delay);
 extern double calc_degree(void);
 extern void MOTOR_2_deg(float deg);
 extern void set_delay(int new_delay);
-extern void delay10ms(void);
+extern void delayXms(long int);
 extern void RGBBlink(int count, int delay);
 extern void rlc_leds(int count, int delay);
+extern void send_degree(float deg);
 
 
 #endif

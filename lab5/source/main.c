@@ -39,8 +39,9 @@ void main(void){
             case 2:
                 joystick_2_motor(delay_int);
                 deg = calc_degree();
-                delay10ms();
+                send_degree(deg);
                 sleep();
+                delayXms(25000);
                 break;
 
             case 3:               // Stepper Motor Calibration:

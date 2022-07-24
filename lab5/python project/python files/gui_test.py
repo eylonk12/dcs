@@ -27,8 +27,9 @@ def receive_data(serial_comm,delay=0.25):
             if x != '#':
                 str += x
             else:
-                print(str)
-                str = ""
+                if str.isalnum():
+                    print(str)
+                    str = ""
 
 
 

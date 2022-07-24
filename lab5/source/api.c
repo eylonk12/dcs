@@ -90,15 +90,19 @@ double calc_degree(void) {
         degree = degree + 360;
     return degree;
 }
-void delay10ms(void){
-    delay10MS();
+// The delay is x*40usec
+void delayXms(long int x){
+    long long int i;
+    for (i = 0; i < x; i++){
+        delay10MS();
+    }
 }
 
-//void send_degree(float deg){
-////    int deg_int = (int)deg;
-////    int2str(deg_val,deg_int);
-////    enable_transmition();
-//}
+void send_degree(float deg){
+    int deg_int = (int)deg;
+    int2str(deg_val,deg_int);
+    enable_transmition();
+}
 //**************************************************************
 //             script functions
 //**************************************************************
