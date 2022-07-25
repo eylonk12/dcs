@@ -7,7 +7,7 @@ import serial as ser
 import time
 import os
 
-MOUSE_X_OFFSET = 100
+MOUSE_X_OFFSET = 200
 MOUSE_Y_OFFSET = 50
 STATES = ["#0\n", "#1\n", "#2\n", "#3\n", "#4\n"]
 DELAY = 0.001
