@@ -39,7 +39,7 @@ def receive_data_infintely_for_debug(serial_comm,delay=DELAY):
                     print(str)
                     str = ""
 
-def receive_angle(serial_comm,delay=DELAY):
+def receive_angle_or_mode_change(serial_comm,delay=DELAY):
     # Waiting until some data is received, after that happens we read the ecpected data according to
     # state and then checking if the RX buffer is empty or we need to continue reading from it.
     str = ""
@@ -50,6 +50,8 @@ def receive_angle(serial_comm,delay=DELAY):
             if x != '#':
                 str += x
             else:
+                if x == "$":
+                    return "$"
                 if str.isalnum():
                     return str
 
@@ -161,7 +163,11 @@ class Paint(Toplevel):
             else:
                 self.change_input = 0
         else:
-            self.theta = int(receive_angle(serial_comm))
+            input = receive_angle_or_mode_change(serial_comm)
+            if input == "$":
+                self.change_input = 1
+            else:
+                self.theta = int(receive_angle_or_mode_change(serial_comm))
 
 
     def get_next_coordinate(self):
