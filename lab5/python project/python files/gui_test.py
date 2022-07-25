@@ -7,11 +7,10 @@ import serial as ser
 import time
 import os
 
-MOUSE_X_OFFSET = 50
-MOUSE_Y_OFFSET = MOUSE_X_OFFSET
+MOUSE_X_OFFSET = 100
+MOUSE_Y_OFFSET = 50
 STATES = ["#0\n", "#1\n", "#2\n", "#3\n", "#4\n"]
 DELAY = 0.001
-
 
 USER = "YAKIR"
 path = os.getcwd()
@@ -74,6 +73,7 @@ class Paint(Toplevel):
         self.closing_app  = False
         self.draws_counter = 0
         self.radius_mode  = 0
+        self.cursor_to_pen = False
 
         # serial_comm.reset_input_buffer()
         # serial_comm.reset_output_buffer()
@@ -96,16 +96,21 @@ class Paint(Toplevel):
         self.get_next_coordinate()
 
     def use_pen(self):
-        self.cursor_mode = False
-        self.eraser_on   = False
+        self.cursor_mode   = False
+        self.eraser_on     = False
+        self.cursor_to_pen = False
+        print("USING PEN\n"*10)
 
     def use_eraser(self):
-        self.cursor_mode = False
-        self.eraser_on   = True
+        self.cursor_mode   = False
+        self.eraser_on     = True
+        self.cursor_to_pen = True
+        print("USING ERASER\n"*10)
 
     def use_cursor(self):
         self.cursor_mode = True
         self.eraser_on   = False
+        print("USING CURSOR\n"*10)
 
     def paint(self, theta):
         print(theta)
@@ -177,11 +182,14 @@ class Paint(Toplevel):
 
         if self.change_input == 1:
             if self.cursor_mode:
-                self.use_pen()
+                if self.cursor_to_pen:
+                    self.use_pen()
+                else:
+                    self.use_eraser()
             elif self.eraser_on:
                 self.use_cursor()
             else: # Pen mode
-                self.use_eraser()
+                self.use_cursor()
             self.change_input = 0
         else:
             self.paint(self.theta)
