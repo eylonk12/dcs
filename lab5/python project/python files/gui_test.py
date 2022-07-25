@@ -5,19 +5,25 @@ import numpy as np
 import sys
 import serial as ser
 import time
+import os
 
 MOUSE_X_OFFSET = 50
 MOUSE_Y_OFFSET = MOUSE_X_OFFSET
+STATES = ["#0\n", "#1\n", "#2\n", "#3\n", "#4\n"]
+DELAY = 0.001
 
-USER = "EYLON"
-
-def transmit_data(data, delay=0.25):
+USER = "YAKIR"
+path = os.getcwd()
+print(path)
+image = path +"\msp430.jpg"
+def transmit_data(data, delay=DELAY):
     # Writing the state and possibly the delay value.
+    print("Transmitting :" + str(bytes(data, 'ascii')))
     serial_comm.write(bytes(data, 'ascii'))
     while serial_comm.out_waiting:  # while the output buffer isn't empty
         time.sleep(delay)  # delay for accurate read/write operations on both
 
-def receive_data_infintely_for_debug(serial_comm,delay=0.25):
+def receive_data_infintely_for_debug(serial_comm,delay=DELAY):
     # Waiting until some data is received, after that happens we read the ecpected data according to
     # state and then checking if the RX buffer is empty or we need to continue reading from it.
     str = ""
@@ -33,7 +39,7 @@ def receive_data_infintely_for_debug(serial_comm,delay=0.25):
                     print(str)
                     str = ""
 
-def receive_angle(serial_comm,delay=0.25):
+def receive_angle(serial_comm,delay=DELAY):
     # Waiting until some data is received, after that happens we read the ecpected data according to
     # state and then checking if the RX buffer is empty or we need to continue reading from it.
     str = ""
@@ -63,18 +69,17 @@ class Paint(Toplevel):
         self.x_input      = 300
         self.y_input      = 300
         self.theta        = 0
-        self.radius       = 1
+        self.radius       = 5
         self.change_input = 0
         self.closing_app  = False
         self.draws_counter = 0
         self.radius_mode  = 0
 
-        serial_comm.reset_input_buffer()
-        serial_comm.reset_output_buffer()
+        # serial_comm.reset_input_buffer()
+        # serial_comm.reset_output_buffer()
 
         self.setup()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.get_next_coordinate()
         self.root.mainloop()
 
     def on_closing(self):
@@ -88,6 +93,7 @@ class Paint(Toplevel):
         self.color = self.DEFAULT_COLOR
         self.eraser_on = False
         self.cursor_mode = False
+        self.get_next_coordinate()
 
     def use_pen(self):
         self.cursor_mode = False
@@ -102,14 +108,30 @@ class Paint(Toplevel):
         self.eraser_on   = False
 
     def paint(self, theta):
+        print(theta)
+        if theta == 400:
+            return
         if self.old_x == None:
             self.old_x = 300
             self.old_y = 300
             return
-        x_offset = int(self.radius*np.cos(theta))
-        y_offset = int(self.radius*np.sin(theta))
+        x_offset = -int(self.radius*np.cos(theta*np.pi/180))
+        y_offset = -int(self.radius*np.sin(theta*np.pi/180))
         x = x_offset + self.old_x
         y = y_offset + self.old_y
+        if x<0:
+            x=0
+            print("problem")
+        if x>600:
+            x=600
+            print("problem")
+        if y<0:
+            y=0
+            print("problem")
+        if y>600:
+            y=600
+            print("problem")
+
 
         paint_color = 'white' if self.eraser_on else self.color
         if not self.cursor_mode:
@@ -162,7 +184,7 @@ class Paint(Toplevel):
                 self.use_cursor()
         # self.paint(self.x_input, self.y_input)
         self.paint(self.theta)
-        root.after(10, self.get_next_coordinate)
+        root.after(1, self.get_next_coordinate)
 
 
 
@@ -177,10 +199,7 @@ root = Tk()
 root.geometry("1200x900")
 root.title("Final project")
 
-if (USER == "EYLON"):
-    imge = Image.open("C:/Users/eylonk/dcs/lab5/python project/eylon's project/msp430.jpg")
-else: # USER == "YAKIR"
-    imge = Image.open("C:/Users/eylonk/dcs/lab5/python project/eylon's project/msp430.jpg")
+imge = Image.open(image)
 
 photo=ImageTk.PhotoImage(imge)
 
@@ -205,23 +224,29 @@ ln = StringVar()
 
 def manual_control_of_motor_based_machine():
     tkinter.messagebox.showinfo("manual control of motor based machine",'now the joystick controlling the pointer on the motor')
+    transmit_data(STATES[1])
 
 
 
 def Joystick_based_PC_painter():
+    transmit_data(STATES[2])
+    #receive_data_infintely_for_debug(serial_comm)
     Paint()
 
 
 def stepper_motor_calibration():
+    transmit_data(STATES[3])
     tkinter.messagebox.showinfo("Stepper Motor Calibration",'the pointer are going to 0 degree \n the number on steps is: 2050\n every step angle is: 0.1756 degree')
 
 
 def script_mode():
-    exit()
+    transmit_data(STATES[4])
 
 
-def exit1():
-    exit()
+
+def sleep():
+    transmit_data(STATES[0])
+
 
 
 
@@ -240,8 +265,11 @@ b2.place(x=400,y=200)
 b3 = Button(root,text="Stepper Motor Calibration",width=20,bg='brown',fg='white',command=stepper_motor_calibration)
 b3.place(x=750,y=200)
 
-b4 = Button(root,text="Script mode",width=12,bg='brown',fg='white',command=exit1)
+b4 = Button(root,text="Script mode",width=12,bg='brown',fg='white',command=script_mode)
 b4.place(x=1000,y=200)
+
+b0 = Button(root,text="sleep",width=12,bg='brown',fg='white',command=sleep)
+b0.place(x=100,y=100)
 
 var=StringVar()
 script_list = ['Script1','Script2','Script3']
