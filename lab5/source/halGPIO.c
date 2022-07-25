@@ -3,8 +3,8 @@
 
 
 // variables
-char deg_val[4];
-unsigned int deg_val_idx = 0,j;
+char tx_str_val[4];
+unsigned int tx_str_idx = 0,j;
 unsigned int OFFCount;
 unsigned int dealy_cnt=0;
 int volatile MOTOR_DATA = 0x08 ;
@@ -15,6 +15,8 @@ int PB_Axis = 0;
 char rec_mode;
 float degree = 0;
 char tx_data = 'a';
+char states_RX_buffer[3];
+
 
 
 //**************************************************************
@@ -131,24 +133,15 @@ void enable_transmition(void){
 //**************************************************************
 //            integer to string converter
 //**************************************************************
-void int2str(char *str, unsigned int num){
+void int2str(char str[4], int num){
     int strSize = 0;
-    long tmp = num, len = 0;
-    int j;
-
-    // Find the size of the intPart by repeatedly dividing by 10
-    while(tmp){
-        len++;
-        tmp /= 10;
-    }
+    int tmp = num;//, len = 1;
 
     // Print out the numbers in reverse
-    for(j = len - 1; j >= 0; j--){
+    for(int j = 2; j >= 0; j--){
         str[j] = (num % 10) + '0';
         num /= 10;
     }
-    strSize += len;
-    str[strSize] = '#';
 //    str[strSize] = '\0';
 }
 
@@ -162,10 +155,13 @@ void int2str(char *str, unsigned int num){
 __interrupt void USCI0TX_ISR(void)
 {
     if(state == 2){
-        TxBuffer = deg_val[deg_val_idx];
-        deg_val_idx++;
-        if (deg_val_idx == sizeof deg_val){                         // TX over?
-            deg_val_idx = 0;
+        TxBuffer = tx_str_val[tx_str_idx];
+        tx_str_idx++;
+        if (TxBuffer == '$'){
+          int error = 1;
+        }
+        if (tx_str_idx == sizeof tx_str_val){                         // TX over?
+            tx_str_idx = 0;
             IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
             IE2 |= UCA0RXIE;                             // Enable USCI_A0 RX interrupt
             __bic_SR_register_on_exit(CPUOFF);
@@ -178,23 +174,32 @@ __interrupt void USCI0TX_ISR(void)
 //**************************************************************
 #pragma vector=USCIAB0RX_VECTOR
 __interrupt void USCI0RX_ISR(void) {
-    char x = RxBuffer;
-    __bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
-    if (x == '#') {
-        rec_mode = x;
-        return;
+    //char x = RxBuffer;
+    states_RX_buffer[j] = UCA0RXBUF;
+    j++;
+    if (states_RX_buffer[j-1] == '\n')
+    {
+      if (rec_mode == '#') {
+        state = states_RX_buffer[1]- 48;
+       
+        }
+        if (rec_mode == '$') {
+      
+        }
+        j = 0;
+        //IE2 |= UCA0TXIE;  
     }
-    if (x == '$') {
-        rec_mode = x;
-        return;
+    // Enable USCI_A0 TX interrupt
+    //__bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
+    if (states_RX_buffer[0] == '#') {
+        rec_mode = states_RX_buffer[0];
+        
     }
-    if (rec_mode == '#') {
-        state = x - 48;
-        return;
+    if (states_RX_buffer[0] == '$') {
+        rec_mode = states_RX_buffer[0];
+        
     }
-    if (rec_mode == '$') {
-        return;
-    }
+    __bic_SR_register_on_exit(CPUOFF);
 }
 //**************************************************************
 //         ADC10 Interrupt Service Routine
@@ -212,7 +217,9 @@ __interrupt void ADC10_ISR(void){
 __interrupt void PORT1_ISR(void){
     DelayMs(1);
     JOY_INT_PEND &= ~0X20;
+    tx_str_val[0] = '$'; tx_str_val[1] = '$';  tx_str_val[2] = '$';  tx_str_val[3] = '#';
     if(state==2){
+        enable_transmition();
          return ;            // here we need to send click to the PC to change mode
     }
 }

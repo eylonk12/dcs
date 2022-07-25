@@ -15,7 +15,7 @@ extern volatile int bottom_to_top;                           // going to be 0
 extern volatile char POT_val[5];
 extern volatile unsigned int current_step ;
 extern volatile unsigned int delay_int ;
-extern volatile float deg ;
+extern float deg ;
 extern unsigned int step_cnt ;           // the value of the current step for restart
 extern volatile int motor_dir;                       // direction of the motor movement
 extern volatile int motor_is_moving;
@@ -28,13 +28,14 @@ extern void MOTOR_move(void);
 extern void MOTOR_2_zero(int delay);
 extern void sleep(void);
 extern void joystick_2_motor(int delay);
-extern double calc_degree(void);
+extern float calc_degree(int mode);
 extern void MOTOR_2_deg(float deg);
 extern void set_delay(int new_delay);
 extern void delayXms(long int);
 extern void RGBBlink(int count, int delay);
 extern void rlc_leds(int count, int delay);
 extern void send_degree(float deg);
+extern void send_painter_mode_change();
 
 
 #endif

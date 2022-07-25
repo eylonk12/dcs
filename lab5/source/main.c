@@ -2,11 +2,11 @@
 #include  "../header/api.h"    		// private library - API layer
 
 // GLOBAL VARIABLES
-volatile unsigned int   state = 2;
+volatile unsigned int   state = 0;
 enum SYSmode lpm_mode;
 volatile unsigned int delay_int = 10;       // the default value for the delay
 int steps;           // the default value for the delay
-volatile float deg = 270;                      // the default value deg
+float deg = 270;                      // the default value deg
 volatile unsigned int current_step = 0;    // the value of the current step for restart
 unsigned int step_cnt=0 ;           // the value of the current step for restart
 volatile int motor_dir;                       // direction of the motor movement
@@ -27,21 +27,22 @@ void main(void){
 
             case 1:
                 joystick_2_motor(delay_int);
-                deg = calc_degree();
+                deg = calc_degree(0);
                 MOTOR_2_deg(deg);
 
                 // Temporary section for UART checking.
-                UCA0CTL1 &= ~UCSWRST; // **Initialize USCI state machine**
-                IE2 |= UCA0RXIE;      // Enable USCI_A0 RX interrupt
+
 //                IE2 |= UCA0TXIE;      // Enable USCI_A0 TX interrupt
                 break;
 
             case 2:
                 joystick_2_motor(delay_int);
-                deg = calc_degree();
+                deg = calc_degree(1);
                 send_degree(deg);
                 sleep();
-                delayXms(25000);
+                send_painter_mode_change();
+                sleep();
+                delayXms(5000);
                 break;
 
             case 3:               // Stepper Motor Calibration:

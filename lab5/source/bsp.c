@@ -27,7 +27,8 @@ void GPIOconfig(void){
   // Setting the Baud rate to 9600 Baud.
   UCA0BR0 = 104;
   UCA0BR1 = 0x00;
-
+  UCA0CTL1 &= ~UCSWRST; // **Initialize USCI state machine**
+  IE2 |= UCA0RXIE;      // Enable USCI_A0 RX interrupt
   UCA0MCTL = UCBRS0;   // start bit 1
   ////////////////////////////////////////////////////////////////////////////////////
     
@@ -39,7 +40,7 @@ void GPIOconfig(void){
   JOY_SEL      &= ~0x38;               // P1.3 - P1.5 as GPIO
   JOY_DIR      &= ~0X38;               // P1.3 - P1.5 as input
   JOY_IES      |=  0x20;               // choose P1.5 as pull-up mode
-  JOY_IE       |=  0x20;               // interrupt enable for joystick pushbutton
+  JOY_IE       &= ~0x20;               // interrupt enable for joystick pushbutton
   JOY_INT_PEND &= ~0X20;               // clear pending interrupts from joystick
 
 

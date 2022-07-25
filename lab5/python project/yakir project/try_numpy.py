@@ -9,6 +9,9 @@ import serial as ser
 import time
 
 
+str = "adsff"
+print("$")
+
 def move_mouse_to(x, y):
     # Create a new temporary root
     temp_root = tk.Tk()
@@ -22,7 +25,3 @@ def move_mouse_to(x, y):
     temp_root.update()
     # Destroy the root
     temp_root.destroy()
-
-if __name__ == "__main__":
-    print("hi")
-    move_mouse_to(500,500)

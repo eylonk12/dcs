@@ -77,14 +77,20 @@ void joystick_2_motor(int delay){
     read_from_juystick();
 }
 
-double calc_degree(void) {
+float calc_degree(int mode) {
     x = X_Axis - base_x;
     if (x == 0)
-        return current_step / normal;
+        if (mode == 0)
+            return current_step / normal;
+        else if (mode == 1)
+            return 400;
     y = Y_Axis - base_y;
     if (pow(x, 2) + pow(y, 2) < pow(ERROR_RADIUS, 2))
-        return current_step / normal;
-    double degree = atan2(y, x);
+        if (mode == 0)
+            return current_step / normal;
+        else if (mode == 1)
+            return 400;
+    float degree = atan2(y, x);
     degree = degree * normal_degree;
     if (degree < 0)
         degree = degree + 360;
@@ -99,9 +105,17 @@ void delayXms(long int x){
 }
 
 void send_degree(float deg){
-    int deg_int = (int)deg;
-    int2str(deg_val,deg_int);
+    int deg_int = (int)deg; 
+    tx_str_val[0] = '0'; tx_str_val[1] = '0';  tx_str_val[2] = '0';  tx_str_val[3] = '0';
+    int2str(tx_str_val,deg_int);
+    tx_str_val[3] = '#';
     enable_transmition();
+}
+
+void send_painter_mode_change(){
+    JOY_IE       |= 0x20;
+    delayXms(10);
+    JOY_IE       &= ~0x20;
 }
 //**************************************************************
 //             script functions

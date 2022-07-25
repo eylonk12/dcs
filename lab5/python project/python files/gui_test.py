@@ -12,9 +12,9 @@ MOUSE_Y_OFFSET = MOUSE_X_OFFSET
 STATES = ["#0\n", "#1\n", "#2\n", "#3\n", "#4\n"]
 DELAY = 0.001
 
+
 USER = "YAKIR"
 path = os.getcwd()
-print(path)
 image = path +"\msp430.jpg"
 def transmit_data(data, delay=DELAY):
     # Writing the state and possibly the delay value.
@@ -22,22 +22,20 @@ def transmit_data(data, delay=DELAY):
     serial_comm.write(bytes(data, 'ascii'))
     while serial_comm.out_waiting:  # while the output buffer isn't empty
         time.sleep(delay)  # delay for accurate read/write operations on both
-
-def receive_data_infintely_for_debug(serial_comm,delay=DELAY):
-    # Waiting until some data is received, after that happens we read the ecpected data according to
-    # state and then checking if the RX buffer is empty or we need to continue reading from it.
-    str = ""
-    while True:
-        if serial_comm.in_waiting:
-            x = serial_comm.read(size=1).decode("ascii")  # read 3 byte from the input buffer
-            # print(x)
-            time.sleep(delay)  # delay for accurate read/write operations on both ends
-            if x != '#':
-                str += x
-            else:
-                if str.isalnum():
-                    print(str)
-                    str = ""
+#
+# def receive_data_infintely_for_debug(serial_comm,delay=DELAY):
+#     # Waiting until some data is received, after that happens we read the ecpected data according to
+#     # state and then checking if the RX buffer is empty or we need to continue reading from it.
+#     str = ""
+#     while True:
+#         if serial_comm.in_waiting:
+#             x = serial_comm.read(size=1).decode("ascii")  # read 3 byte from the input buffer
+#             time.sleep(delay)  # delay for accurate read/write operations on both ends
+#             if x != '#':
+#                 str += x
+#             else:
+#                 if str.isalnum():
+#                     str = ""
 
 def receive_angle_or_mode_change(serial_comm,delay=DELAY):
     # Waiting until some data is received, after that happens we read the ecpected data according to
@@ -50,7 +48,7 @@ def receive_angle_or_mode_change(serial_comm,delay=DELAY):
             if x != '#':
                 str += x
             else:
-                if x == "$":
+                if '$' in str:
                     return "$"
                 if str.isalnum():
                     return str
@@ -167,7 +165,7 @@ class Paint(Toplevel):
             if input == "$":
                 self.change_input = 1
             else:
-                self.theta = int(receive_angle_or_mode_change(serial_comm))
+                self.theta = int(input)
 
 
     def get_next_coordinate(self):
@@ -178,18 +176,15 @@ class Paint(Toplevel):
         self.get_next_input()
 
         if self.change_input == 1:
-            # if self.cursor_mode:
-            #     self.use_pen()
-            # elif self.eraser_on:
-            #     self.use_cursor()
-            # else: # Pen mode
-            #     self.use_eraser()
             if self.cursor_mode:
                 self.use_pen()
-            else:
+            elif self.eraser_on:
                 self.use_cursor()
-        # self.paint(self.x_input, self.y_input)
-        self.paint(self.theta)
+            else: # Pen mode
+                self.use_eraser()
+            self.change_input = 0
+        else:
+            self.paint(self.theta)
         root.after(1, self.get_next_coordinate)
 
 
