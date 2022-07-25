@@ -9,13 +9,15 @@ import time
 MOUSE_X_OFFSET = 50
 MOUSE_Y_OFFSET = MOUSE_X_OFFSET
 
+USER = "EYLON"
+
 def transmit_data(data, delay=0.25):
     # Writing the state and possibly the delay value.
     serial_comm.write(bytes(data, 'ascii'))
     while serial_comm.out_waiting:  # while the output buffer isn't empty
         time.sleep(delay)  # delay for accurate read/write operations on both
 
-def receive_data(serial_comm,delay=0.25):
+def receive_data_infintely_for_debug(serial_comm,delay=0.25):
     # Waiting until some data is received, after that happens we read the ecpected data according to
     # state and then checking if the RX buffer is empty or we need to continue reading from it.
     str = ""
@@ -31,6 +33,19 @@ def receive_data(serial_comm,delay=0.25):
                     print(str)
                     str = ""
 
+def receive_angle(serial_comm,delay=0.25):
+    # Waiting until some data is received, after that happens we read the ecpected data according to
+    # state and then checking if the RX buffer is empty or we need to continue reading from it.
+    str = ""
+    while True:
+        if serial_comm.in_waiting:
+            x = serial_comm.read(size=1).decode("ascii")  # read 3 byte from the input buffer
+            time.sleep(delay)  # delay for accurate read/write operations on both ends
+            if x != '#':
+                str += x
+            else:
+                if str.isalnum():
+                    return str
 
 
 class Paint(Toplevel):
@@ -108,19 +123,24 @@ class Paint(Toplevel):
         self.old_y = y
 
     def get_next_input(self):
-        self.theta  = self.draws_counter/10
-        if self.radius_mode == 0:
-            self.radius += 0.1
+        test_bench_mode = False
+        if test_bench_mode:
+            self.theta  = self.draws_counter/10
+            if self.radius_mode == 0:
+                self.radius += 0.1
+            else:
+                self.radius -= 1
+            if self.radius > 10:
+                self.radius_mode = 1
+            if self.radius <= 0.1:
+                self.radius_mode = 0
+            if self.draws_counter % 50 == 0:
+                self.change_input = 1
+            else:
+                self.change_input = 0
         else:
-            self.radius -= 1
-        if self.radius > 10:
-            self.radius_mode = 1
-        if self.radius <= 0.1:
-            self.radius_mode = 0
-        if self.draws_counter % 50 == 0:
-            self.change_input = 1
-        else:
-            self.change_input = 0
+            self.theta = int(receive_angle(serial_comm))
+
 
     def get_next_coordinate(self):
         if self.closing_app:
@@ -152,17 +172,16 @@ serial_comm = ser.Serial('COM5', baudrate=9600, bytesize=ser.EIGHTBITS,
 serial_comm.reset_input_buffer()
 serial_comm.reset_output_buffer()
 
-while True:
-    #data = input("What do you want to transmit?\n")
-    #transmit_data(data)
-    receive_data(serial_comm)
-
 root = Tk()
 
 root.geometry("1200x900")
 root.title("Final project")
 
-imge = Image.open("C:/Users/eylonk/dcs/lab5/python project/eylon's project/msp430.jpg")
+if (USER == "EYLON"):
+    imge = Image.open("C:/Users/eylonk/dcs/lab5/python project/eylon's project/msp430.jpg")
+else: # USER == "YAKIR"
+    imge = Image.open("C:/Users/eylonk/dcs/lab5/python project/eylon's project/msp430.jpg")
+
 photo=ImageTk.PhotoImage(imge)
 
 lab = Label(image=photo)
