@@ -1,11 +1,14 @@
 from tkinter import *
 import tkinter.messagebox
+from tkinter import filedialog
 from PIL import Image,ImageTk
 import numpy as np
 import sys
 import serial as ser
 import time
 import os
+
+ACK = chr(6).encode()
 
 MOUSE_X_OFFSET = 200
 MOUSE_Y_OFFSET = 50
@@ -14,7 +17,14 @@ DELAY = 0.001
 
 USER = "YAKIR"
 path = os.getcwd()
-image = path +"\msp430.jpg"
+image = path +"\msp430.jpg"\
+
+
+def Wait4ACK():
+    while serial_comm.read(size=1) != ACK and serial_comm.in_waiting > 0:
+        continue
+    return
+
 def transmit_data(data, delay=DELAY):
     # Writing the state and possibly the delay value.
     print("Transmitting :" + str(bytes(data, 'ascii')))
@@ -234,30 +244,96 @@ ln = StringVar()
 def manual_control_of_motor_based_machine():
     tkinter.messagebox.showinfo("manual control of motor based machine",'now the joystick controlling the pointer on the motor')
     transmit_data(STATES[1])
+    print("before ACK")
+    Wait4ACK()
+    print("after ACK")
 
 
 
 def Joystick_based_PC_painter():
     transmit_data(STATES[2])
+    print("before ACK")
+    Wait4ACK()
+    print("after ACK")
     #receive_data_infintely_for_debug(serial_comm)
     Paint()
 
 
 def stepper_motor_calibration():
     transmit_data(STATES[3])
+    print("before ACK")
+    Wait4ACK()
+    print("after ACK")
     tkinter.messagebox.showinfo("Stepper Motor Calibration",'the pointer are going to 0 degree \n the number on steps is: 2050\n every step angle is: 0.1756 degree')
 
 
 def script_mode():
     transmit_data(STATES[4])
+    print("before ACK")
+    Wait4ACK()
+    print("after ACK")
 
 
 
 def sleep():
     transmit_data(STATES[0])
+    print("before ACK")
+    Wait4ACK()
+    print("after ACK")
 
 
+# Function for opening the
+# file explorer window
+def browseFiles(idx):
+    filename = filedialog.askopenfilename(initialdir="/",
+                                          title="Select a File",
+                                          filetypes=(("Text files",
+                                                      "*.txt*"),
+                                                     ("all files",
 
+                                                      "*.*")))
+    script_name = filename.split('/')[-1]
+    with open(filename, "r") as f:
+        script_content = f.read()
+    if idx == 1:
+        script1_pb.config(text=script_name)
+        Send_script(idx, script_name, script_content)
+    elif idx == 2:
+        script2_pb.config(text=script_name)
+        Send_script(idx, script_name, script_content)
+    elif idx == 3:
+        script3_pb.config(text=script_name)
+        Send_script(idx, script_name, script_content)
+
+
+def Send_script(script_idx, script_name, script_content):
+    ''' sends name and size of a script to MCU.
+        sends the script content to MCU. '''
+    script_content2send = '!' + script_content + '!'
+
+    send_name = '$' + script_name + '\n'
+    send_idx  = '%' + str(script_idx) + '\n'
+    send_size = '@' + str(len(script_content2send)) + '\n'
+
+    transmit_data(send_name)
+    #print("Before ACK - name")
+    Wait4ACK()
+    #print("After ACK - name")
+
+    transmit_data(send_idx)
+    #print("Before ACK - idx")
+    Wait4ACK()
+    #print("After ACK - idx")
+
+    transmit_data(send_size)
+    #print("Before ACK - size")
+    Wait4ACK()
+    #print("After ACK - size")
+
+    transmit_data(script_content2send)
+    #print("Before ACK - content")
+    Wait4ACK()
+    #print("After ACK - content")
 
 
 label_0 = Label(root,text="Final project",relief="solid",width=20,font=("arial",19,"bold"))
@@ -280,12 +356,35 @@ b4.place(x=1000,y=200)
 b0 = Button(root,text="sleep",width=12,bg='brown',fg='white',command=sleep)
 b0.place(x=100,y=100)
 
-var=StringVar()
-script_list = ['Script1','Script2','Script3']
-droplist=OptionMenu(root,var,*script_list)
-var.set("Select script")
-droplist.config(width=15)
-droplist.place(x=1000,y=300)
+# var=StringVar()
+# script_list = ['Script1','Script2','Script3']
+# droplist=OptionMenu(root,var,*script_list)
+# var.set("Select script")
+# droplist.config(width=15)
+# droplist.place(x=1000,y=300)
+
+script1_pb = Button(root,text="Empty",width=12,bg='blue',fg='white',command=lambda idx=1: browseFiles(idx))
+script1_pb.place(x=1000,y=350)
+script2_pb = Button(root,text="Empty",width=12,bg='blue',fg='white',command=lambda idx=2: browseFiles(idx))
+script2_pb.place(x=1000,y=400)
+script3_pb = Button(root,text="Empty",width=12,bg='blue',fg='white',command=lambda idx=3: browseFiles(idx))
+script3_pb.place(x=1000,y=450)
+
+
+
+start_script1 = Button(root,text="Start script 1 run",width=12,bg='brown',fg='white',command=Joystick_based_PC_painter)
+start_script1.place(x=900,y=350)
+
+start_script2 = Button(root,text="Start script 2 run",width=12,bg='brown',fg='white',command=Joystick_based_PC_painter)
+start_script2.place(x=900,y=400)
+
+start_script3 = Button(root,text="Start script 3 run",width=12,bg='brown',fg='white',command=Joystick_based_PC_painter)
+start_script3.place(x=900,y=450)
+
+stop_script = Button(root,text="Stop script run",width=40,bg='brown',fg='white',command=Joystick_based_PC_painter)
+stop_script.place(x=800,y=300)
+
+root.mainloop()
 
 def move_mouse_to(x, y):
     # Create a new temporary root
@@ -302,7 +401,6 @@ def move_mouse_to(x, y):
     temp_root.destroy()
 
 
-root.mainloop()
 
 
 

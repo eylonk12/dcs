@@ -1,5 +1,6 @@
 #include  "../header/halGPIO.h"     // private library - HAL layer
 #include "../header/bsp.h"
+#include <string.h>
 
 
 // variables
@@ -15,8 +16,15 @@ int PB_Axis = 0;
 char rec_mode;
 float degree = 0;
 char tx_data = 'a';
-char states_RX_buffer[3];
+char states_RX_buffer[60];
 
+// Scirpts variables
+extern Script_files script_files;
+int s_size;
+char s_size_str[3];
+int s_idx;
+char s_name[MAX_NAME_SIZE];
+char s_content[SCRIPT_SIZE];
 
 
 //**************************************************************
@@ -146,6 +154,20 @@ void int2str(char str[4], int num){
 }
 
 //**************************************************************
+//            string to integer converter
+//**************************************************************
+int str2int(char str[3])
+{
+    int i,res = 0;
+    for (i = 0; str[i] != '\n'; ++i) {
+        if (str[i]> '9' || str[i]<'0')
+            return -1;
+        res = res * 10 + str[i] - '0';
+    }
+    return res;
+}
+
+//**************************************************************
 //            Interrupts Service Routine
 //**************************************************************
 ////**************************************************************
@@ -168,7 +190,6 @@ __interrupt void USCI0TX_ISR(void)
         }
     }
 }
-
 //**************************************************************
 //        UART-  Receiver Interrupt Service Routine
 //**************************************************************
@@ -177,28 +198,66 @@ __interrupt void USCI0RX_ISR(void) {
     //char x = RxBuffer;
     states_RX_buffer[j] = UCA0RXBUF;
     j++;
-    if (states_RX_buffer[j-1] == '\n')
+    if (j>1 && states_RX_buffer[j-1] == '!') {
+        strncpy(s_content, states_RX_buffer + 1, j-1);
+        add_script(&script_files, s_name, s_size, s_idx, s_content);
+        SEND_ACK;
+        j = 0; 
+    }
+    else if (states_RX_buffer[j-1] == '\n')
     {
-      if (rec_mode == '#') {
-        state = states_RX_buffer[1]- 48;
-       
+        switch (rec_mode) {
+            case '#':
+                state = states_RX_buffer[1]- 48;
+                DISABLE_TX_INT;
+                SEND_ACK;
+                j = 0;
+                break;
+            case '$':
+                strncpy(s_name, states_RX_buffer+1,j-1);
+                SEND_ACK;
+                j = 0;
+                break;
+            case '%':
+                s_idx = states_RX_buffer[1] - 49;
+                SEND_ACK;
+                j = 0;
+                break;
+            case '@':
+                strncpy(s_size_str, states_RX_buffer + 1, j - 1);
+                s_size = str2int(s_size_str);
+                SEND_ACK;
+                j = 0;
+                break;
         }
-        if (rec_mode == '$') {
-      
-        }
-        j = 0;
-        //IE2 |= UCA0TXIE;  
+
+        //IE2 |= UCA0TXIE;
     }
     // Enable USCI_A0 TX interrupt
     //__bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
-    if (states_RX_buffer[0] == '#') {
-        rec_mode = states_RX_buffer[0];
-        
+
+    switch (states_RX_buffer[0]) {
+        case '#': //state change
+            rec_mode = '#';
+            break;
+        case '$'://get script name
+            if (state == 4)
+                rec_mode = '$';
+            break;
+        case '%'://get script idx
+            if (state == 4)
+                rec_mode = '%';
+            break;
+        case '@'://get script size
+            if (state == 4)
+                rec_mode = '@';
+            break;
+        case '!'://get script content
+            if (state == 4)
+                rec_mode = '!';
+            break;
     }
-    if (states_RX_buffer[0] == '$') {
-        rec_mode = states_RX_buffer[0];
-        
-    }
+
     __bic_SR_register_on_exit(CPUOFF);
 }
 //**************************************************************
@@ -292,7 +351,34 @@ __interrupt void Timer_A0(void){
     __bic_SR_register_on_exit(LPM0_bits);         // Exit LPM0
 }
 
+//**************************************************************
+//             script sturcture functions
+//**************************************************************
+void init_Scripts(Script_files *script_files) {
+    // init for the files object
+    int i;
+    for (i = 0; i < NUM_SCRIPTS; i++) {
+        script_files->sizes[i] = 0;
+        script_files->p_scripts[i][0] = EOF;
+    }
+    script_files->num_of_scripts = 0;
+}
 
-        
+void add_script(Script_files *script_files, char* name, int size, int idx, char content[SCRIPT_SIZE]) {
+    // adding script to the files structure, inputs its name, size and index in the list, output its pointer
+    strcpy(script_files->p_names[idx], name);
+    if (script_files->sizes[idx] == 0)  // first time that this script index is added
+        script_files->num_of_scripts += 1;
+    script_files->sizes[idx] = size;
+    strcpy(script_files->p_scripts[idx],content);
+    script_files->p_scripts[idx][size] = EOF;
+}
 
+char* get_script(Script_files *script_files, int i, char* s_name_buffer, int* s_size) {
+    // writes the name of the script (that is in index i ) and its size on the name buffer and size buffer
+    // returnes the script's start pointer.
+    strcpy(s_name_buffer, script_files->p_names[i]);
+    *s_size = script_files->sizes[i];  // will be 0 if there is no script there
+    return  script_files->p_scripts[i];
+}
 

@@ -14,8 +14,13 @@ volatile int motor_is_moving =0;              //
 volatile char delay_str[10];                 // Receive the char to here for conversion
 volatile char asci_char[10];
 
+// Scirpts variables
+Script_files script_files;
+
+
 void main(void){
   // initial the system
+    init_Scripts(&script_files);
     progConfig();                             // configurations and clearing the system
  // start in idle state on RESET 
   lpm_mode = mode0;

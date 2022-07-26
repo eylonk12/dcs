@@ -2,6 +2,7 @@
 #define _halGPIO_H_
 
 #include  "../header/bsp.h"    		// private library - BSP layer
+#include <stdio.h>
 
 // LCD header file's content.
 
@@ -12,6 +13,23 @@
 #else
 	#define LCD_WAIT DelayMs(5)
 #endif
+
+#define exit_lpm __bic_SR_register_on_exit(LPM0_bits + GIE);
+#define FOURBIT_MODE	0x0
+#define EIGHTBIT_MODE	0x1
+
+#define OUTPUT_PIN      1
+#define INPUT_PIN       0
+#define ACK             6
+#define STOP_SCRIPT     18
+#define START_SCRIPT    19
+#define SEND_ACK        TxBuffer = ACK
+#define DISABLE_TX_INT  IE2 &= ~UCA0TXIE;
+
+#define NUM_SCRIPTS 3
+#define SCRIPT_SIZE 50
+#define MAX_NAME_SIZE 20
+
 //**************************************************************
 // variables
 //**************************************************************
@@ -41,6 +59,7 @@ __interrupt void ADC10_ISR(void);
 //**************************************************************
 extern void clear_rgb(void);
 extern void int2str(char str[4], int num);
+int str2int(char str[3]);
 extern void blink_RGB(int delay);
 extern void rotate_left(int delay);
 extern void SRC_from_MOTOR(void);
@@ -62,18 +81,19 @@ extern volatile int motor_is_moving;
 extern int steps;
 extern void delay10MS(void);
 
-#define exit_lpm __bic_SR_register_on_exit(LPM0_bits + GIE);
+typedef struct {
+    char p_scripts[NUM_SCRIPTS][SCRIPT_SIZE];
+    char p_names[NUM_SCRIPTS][MAX_NAME_SIZE];
+    int sizes[NUM_SCRIPTS];
+    int num_of_scripts;
+} Script_files;
 
 
-/*---------------------------------------------------------
-  END CONFIG
------------------------------------------------------------*/
-#define FOURBIT_MODE	0x0
-#define EIGHTBIT_MODE	0x1
-   
-#define OUTPUT_PIN      1	
-#define INPUT_PIN       0
+void init_Scripts(Script_files *script_files);
 
+void add_script(Script_files *script_files, char* name, int size, int idx, char* content);
+
+char* get_script(Script_files *script_files, int i, char* s_name_buffer, int* s_size);
 
 #endif
 

@@ -4,6 +4,7 @@
 #include  "../header/halGPIO.h"     // private library - HAL layer
 #define ERROR_RADIUS   50
 
+
 //**************************************************************
 //                 GLOBAL VARIABLES
 //**************************************************************
