@@ -212,6 +212,8 @@ __interrupt void USCI0RX_ISR(void) {
         strncpy(s_content, states_RX_buffer + 1, j-1);
         add_script(&script_files, s_name, s_size, s_idx, s_content);
         SEND_ACK;
+        ready = 1;
+        script_char_index =0;
         j = 0; 
     }
     else if (states_RX_buffer[j-1] == '\n')
@@ -237,6 +239,10 @@ __interrupt void USCI0RX_ISR(void) {
                 strncpy(s_size_str, states_RX_buffer + 1, j - 1);
                 s_size = str2int(s_size_str);
                 SEND_ACK;
+                j = 0;
+                break;
+            case '^':
+                script = states_RX_buffer[1] - 48;
                 j = 0;
                 break;
         }
@@ -265,6 +271,10 @@ __interrupt void USCI0RX_ISR(void) {
         case '!'://get script content
             if (state == 4)
                 rec_mode = '!';
+            break;
+        case '^'://get script content
+            if (state == 4)
+                rec_mode = '^';
             break;
     }
 
@@ -392,7 +402,7 @@ void add_script(Script_files *script_files, char* name, int size, int idx, char 
         script_files->num_of_scripts += 1;
     script_files->sizes[idx] = size;
     strcpy(script_files->p_scripts[idx],content);
-    script_files->p_scripts[idx][size] = EOF;
+//    script_files->p_scripts[idx][size] = '!';
 }
 
 char* get_script(Script_files *script_files, int i, char* s_name_buffer, int* s_size) {

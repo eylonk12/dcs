@@ -19,6 +19,21 @@ USER = "YAKIR"
 path = os.getcwd()
 image = path +"\msp430.jpg"\
 
+def move_mouse_to(x, y):
+    # Create a new temporary root
+    temp_root = tkinter.Tk()
+    # Move it to +0+0 and remove the title bar
+    temp_root.overrideredirect(True)
+    # Make sure the window appears on the screen and handles the `overrideredirect`
+    temp_root.update()
+    # Generate the event as @abarnert did
+    temp_root.event_generate("<Motion>", warp=True, x=x, y=y)
+    # Make sure that tcl handles the event
+    temp_root.update()
+    # Destroy the root
+    temp_root.destroy()
+
+
 
 def Wait4ACK():
     while serial_comm.read(size=1) != ACK and serial_comm.in_waiting > 0:
@@ -305,6 +320,13 @@ def browseFiles(idx):
         script3_pb.config(text=script_name)
         Send_script(idx, script_name, script_content)
 
+def start_script(idx):
+    if idx == 1 :
+        transmit_data("^0\n")
+    if idx == 2 :
+        transmit_data("^1\n")
+    if idx == 3 :
+        transmit_data("^2\n")
 
 def Send_script(script_idx, script_name, script_content):
     ''' sends name and size of a script to MCU.
@@ -313,7 +335,7 @@ def Send_script(script_idx, script_name, script_content):
 
     send_name = '$' + script_name + '\n'
     send_idx  = '%' + str(script_idx) + '\n'
-    send_size = '@' + str(len(script_content2send)) + '\n'
+    send_size = '@' + str(len(script_content2send) - 2) + '\n'
 
     transmit_data(send_name)
     #print("Before ACK - name")
@@ -372,13 +394,13 @@ script3_pb.place(x=1000,y=450)
 
 
 
-start_script1 = Button(root,text="Start script 1 run",width=12,bg='brown',fg='white',command=Joystick_based_PC_painter)
+start_script1 = Button(root,text="Start script 1 run",width=12,bg='brown',fg='white',command=lambda idx=1: start_script(idx))
 start_script1.place(x=900,y=350)
 
-start_script2 = Button(root,text="Start script 2 run",width=12,bg='brown',fg='white',command=Joystick_based_PC_painter)
+start_script2 = Button(root,text="Start script 2 run",width=12,bg='brown',fg='white',command=lambda idx=2: start_script(idx))
 start_script2.place(x=900,y=400)
 
-start_script3 = Button(root,text="Start script 3 run",width=12,bg='brown',fg='white',command=Joystick_based_PC_painter)
+start_script3 = Button(root,text="Start script 3 run",width=12,bg='brown',fg='white',command=lambda idx=3: start_script(idx))
 start_script3.place(x=900,y=450)
 
 stop_script = Button(root,text="Stop script run",width=40,bg='brown',fg='white',command=Joystick_based_PC_painter)
@@ -386,19 +408,6 @@ stop_script.place(x=800,y=300)
 
 root.mainloop()
 
-def move_mouse_to(x, y):
-    # Create a new temporary root
-    temp_root = tkinter.Tk()
-    # Move it to +0+0 and remove the title bar
-    temp_root.overrideredirect(True)
-    # Make sure the window appears on the screen and handles the `overrideredirect`
-    temp_root.update()
-    # Generate the event as @abarnert did
-    temp_root.event_generate("<Motion>", warp=True, x=x, y=y)
-    # Make sure that tcl handles the event
-    temp_root.update()
-    # Destroy the root
-    temp_root.destroy()
 
 
 

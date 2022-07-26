@@ -4,7 +4,7 @@
 // GLOBAL VARIABLES
 volatile unsigned int   state = 0;
 int ready = 0;
-int script = 0;
+int script = -1;
 enum SYSmode lpm_mode;
 volatile unsigned int delay_int = 5;       // the default value for the delay
 int steps;           // the default value for the delay
@@ -58,10 +58,10 @@ void main(void){
                 break;
 
             case 4:
-                if(ready == 1)
+              if(ready == 1 & script != -1){
                     next_command();
-
-                sleep();         //sleep and be ready for interrupt
+              }
+                // sleep();         //sleep and be ready for interrupt
                 break;
 
             default:
