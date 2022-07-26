@@ -60,8 +60,9 @@ __interrupt void ADC10_ISR(void);
 extern void clear_rgb(void);
 extern void int2str(char str[4], int num);
 int str2int(char str[3]);
-extern void blink_RGB(int delay);
-extern void rotate_left(int delay);
+extern void blink_RGB(void);
+extern void rotate_left(void);
+extern void rotate_right(void);
 extern void SRC_from_MOTOR(void);
 extern void adc10_config();
 extern void adc10_enable(short enable);
@@ -74,7 +75,7 @@ extern void read_from_juystick(void);
 extern void Enable_TimerA_10ms(void);
 extern void Disable_TimerA_345(void);
 extern void enable_transmition(void);
-extern void blink_RGB(int delay);
+extern void blink_RGB();
 extern unsigned int step_cnt ;           // the value of the current step for restart
 extern volatile int motor_dir;                       // direction of the motor movement
 extern volatile int motor_is_moving;

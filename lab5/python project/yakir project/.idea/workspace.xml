@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d2a25927-ab87-4536-847e-db4766e9f74f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../python files/gui_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python files/gui_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,21 +18,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../python files/gui_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="328" column="31" lean-forward="true" selection-start-line="328" selection-start-column="31" selection-end-line="328" selection-end-column="31" />
+            <state relative-caret-position="992">
+              <caret line="335" column="4" lean-forward="true" selection-start-line="335" selection-start-column="4" selection-end-line="335" selection-end-column="4" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#365#447#0" />
-                <element signature="e#664#665#0" />
-                <element signature="e#1392#2024#0" />
-                <element signature="e#2292#3015#0" />
-                <element signature="e#3657#4746#0" />
-                <element signature="e#4375#4625#0" />
-                <element signature="e#4786#5491#0" />
-                <element signature="e#5537#6103#0" />
-                <element signature="e#7160#7350#0" />
-                <element signature="e#7762#7848#0" />
-                <element signature="e#7869#7955#0" />
               </folding>
             </state>
           </provider>
@@ -109,11 +97,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="610" />
-    <option name="y" value="129" />
-    <option name="width" value="784" />
-    <option name="height" value="832" />
+    <option name="y" value="128" />
+    <option name="width" value="785" />
+    <option name="height" value="833" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -278,14 +266,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49858356" visible="true" weight="0.19915701" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49858356" visible="true" weight="0.1989425" />
       <window_info id="Structure" order="1" sideWeight="0.5023585" side_tool="true" weight="0.24983476" />
       <window_info id="Favorites" order="2" sideWeight="0.50141644" side_tool="true" weight="0.24983476" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.26868907" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26770538" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.36836404" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -321,23 +309,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/gui_test.py" />
-    <entry file="file://$PROJECT_DIR$/try_numpy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/com_pc_side.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/serial/serialwin32.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -354,21 +325,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../python files/gui_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="328" column="31" lean-forward="true" selection-start-line="328" selection-start-column="31" selection-end-line="328" selection-end-column="31" />
+        <state relative-caret-position="992">
+          <caret line="335" column="4" lean-forward="true" selection-start-line="335" selection-start-column="4" selection-end-line="335" selection-end-column="4" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#365#447#0" />
-            <element signature="e#664#665#0" />
-            <element signature="e#1392#2024#0" />
-            <element signature="e#2292#3015#0" />
-            <element signature="e#3657#4746#0" />
-            <element signature="e#4375#4625#0" />
-            <element signature="e#4786#5491#0" />
-            <element signature="e#5537#6103#0" />
-            <element signature="e#7160#7350#0" />
-            <element signature="e#7762#7848#0" />
-            <element signature="e#7869#7955#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/try_numpy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com_pc_side.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1650">
+          <caret line="77" selection-start-line="77" selection-end-line="77" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>

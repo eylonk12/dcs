@@ -116,7 +116,7 @@ void DelayMs(unsigned int cnt){
 	
 }
 
-void blink_RGB(int delay){
+void blink_RGB(void){
     int i;
     for (i =0; i<3; i++){
         if (RGB_DATA == 0x01){
@@ -126,11 +126,21 @@ void blink_RGB(int delay){
         }else
             RGB_DATA = 0x01;
         RGB_OUT = RGB_DATA;
-        DelayMs(delay);
+        DelayMs(500);
     }
 }
-void rotate_left(int delay){
-    LED_OUT = 0xF0;
+void rotate_left(void){
+    if (LED_OUT == 0x80)
+        LED_OUT = 0x10;
+    else
+        LED_OUT = LED_OUT << 1;
+}
+
+void rotate_right(void){
+    if (LED_OUT == 0x10)
+        LED_OUT = 0x80;
+    else
+        LED_OUT = LED_OUT >> 1;
 }
 
 void enable_transmition(void){
@@ -323,6 +333,17 @@ __interrupt void Timer_A0(void){
     if(state == 2){
         Disable_TimerA_345();
     }
+//    if (state == 4){
+//        if (dealy_cnt == delay_int){
+//            dealy_cnt =0;
+//            Disable_TimerA_345();
+//            __bic_SR_register_on_exit(LPM0_bits);
+//            return;
+//        }else{
+//            dealy_cnt++;
+//            return;
+//        }
+//    }
     if (dealy_cnt == delay_int){
         switch (motor_dir){
             case 0:

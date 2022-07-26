@@ -26,6 +26,7 @@ extern int steps;
 //**************************************************************
 extern void progConfig(void);
 extern void MOTOR_move(void);
+extern void clear_all_leds(void);
 extern void MOTOR_2_zero(int delay);
 extern void sleep(void);
 extern void joystick_2_motor(int delay);
@@ -33,8 +34,10 @@ extern float calc_degree(int mode);
 extern void MOTOR_2_deg(float deg);
 extern void set_delay(int new_delay);
 extern void delayXms(long int);
-extern void RGBBlink(int count, int delay);
-extern void rlc_leds(int count, int delay);
+extern void RGBBlink(int count);
+extern void rlc_leds(int count);
+extern void rrc_leds(int count);
+extern void stepper_deg(void);
 extern void send_degree(float deg);
 extern void send_painter_mode_change();
 

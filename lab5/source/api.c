@@ -120,25 +120,40 @@ void send_painter_mode_change(){
 //**************************************************************
 //             script functions
 //**************************************************************
-void RGBBlink(int count, int delay){
+void RGBBlink(int count){
 
     clear_all();
     int i;
     for (i =0; i<count; i++){
-        blink_RGB(delay);
+        delay10MS();
+        sleep();
+        blink_RGB();
     }
-    _BIS_SR(GIE);        // check with eylon if neccery
 }
-void rlc_leds(int count, int delay){
-
-    clear_all();
+void rlc_leds(int count){
     int i;
+    LED_OUT = 0x10;
     for (i =0; i<count; i++){
-        rotate_left(delay);
+        delay10MS();
+        sleep();
+        rotate_left();
     }
-    _BIS_SR(GIE);        // check with eylon if neccery
+}
+void rrc_leds(int count){
+    int i;
+    LED_OUT = 0x10;
+    for (i =0; i<count; i++){
+        delay10MS();
+        sleep();
+        rotate_left();
+    }
 }
 void set_delay(int new_delay){
     delay_int = new_delay;
 }
+void clear_all_leds(void){
+    clear_all();
+}
+
+
 

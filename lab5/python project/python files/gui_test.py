@@ -331,9 +331,9 @@ def Send_script(script_idx, script_name, script_content):
     #print("After ACK - size")
 
     transmit_data(script_content2send)
-    #print("Before ACK - content")
+    print("Before ACK - content")
     Wait4ACK()
-    #print("After ACK - content")
+    print("After ACK - content")
 
 
 label_0 = Label(root,text="Final project",relief="solid",width=20,font=("arial",19,"bold"))
