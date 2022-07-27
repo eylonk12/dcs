@@ -15,8 +15,6 @@
 #endif
 
 #define exit_lpm __bic_SR_register_on_exit(LPM0_bits + GIE);
-#define FOURBIT_MODE	0x0
-#define EIGHTBIT_MODE	0x1
 
 #define OUTPUT_PIN      1
 #define INPUT_PIN       0
@@ -27,7 +25,7 @@
 #define DISABLE_TX_INT  IE2 &= ~UCA0TXIE;
 
 #define NUM_SCRIPTS 3
-#define SCRIPT_SIZE 50
+#define SCRIPT_SIZE 49
 #define MAX_NAME_SIZE 20
 
 //**************************************************************
@@ -38,6 +36,7 @@ extern enum SYSmode lpm_mode; // global variable
 extern char tx_str_val[4];   // data for buffer
 extern volatile unsigned int delay_int;   // data for buffer
 extern float deg;   // data for buffer
+extern int script;
 extern volatile unsigned int current_step ;   // current step
 extern volatile int RGB_DATA ; // the data to RGB output
 extern volatile int MOTOR_DATA ; // the data to MOTOR output
@@ -60,8 +59,9 @@ __interrupt void ADC10_ISR(void);
 extern void clear_rgb(void);
 extern void int2str(char str[4], int num);
 int str2int(char str[3]);
-extern void blink_RGB(int delay);
-extern void rotate_left(int delay);
+extern void blink_RGB(void);
+extern void rotate_left(void);
+extern void rotate_right(void);
 extern void SRC_from_MOTOR(void);
 extern void adc10_config();
 extern void adc10_enable(short enable);
@@ -74,11 +74,13 @@ extern void read_from_juystick(void);
 extern void Enable_TimerA_10ms(void);
 extern void Disable_TimerA_345(void);
 extern void enable_transmition(void);
-extern void blink_RGB(int delay);
+extern void blink_RGB();
 extern unsigned int step_cnt ;           // the value of the current step for restart
 extern volatile int motor_dir;                       // direction of the motor movement
 extern volatile int motor_is_moving;
 extern int steps;
+extern int ready;
+extern int script_char_index;
 extern void delay10MS(void);
 
 typedef struct {

@@ -12,7 +12,11 @@ float normal = 5.6861111;               // the normal for sizing the deg   2047 
 volatile float normal_degree = (180/3.141592654); // the normal for the deg
 int base_x = 477;
 int base_y = 471;
-double x,y =0;  
+double x,y =0;
+char command_buff[6];
+char opcode[2],operand1[2],operand2[2];
+int script_char_index =0;
+extern Script_files script_files;
 
 void progConfig(void){
     sysConfig();
@@ -120,25 +124,89 @@ void send_painter_mode_change(){
 //**************************************************************
 //             script functions
 //**************************************************************
-void RGBBlink(int count, int delay){
+void RGBBlink(int count){
 
     clear_all();
     int i;
     for (i =0; i<count; i++){
-        blink_RGB(delay);
+        delay10MS();
+        sleep();
+        blink_RGB();
     }
-    _BIS_SR(GIE);        // check with eylon if neccery
 }
-void rlc_leds(int count, int delay){
-
-    clear_all();
+void rlc_leds(int count){
     int i;
+    LED_OUT = 0x10;
     for (i =0; i<count; i++){
-        rotate_left(delay);
+        delay10MS();
+        sleep();
+        rotate_left();
     }
-    _BIS_SR(GIE);        // check with eylon if neccery
+}
+void rrc_leds(int count){
+    int i;
+    LED_OUT = 0x10;
+    for (i =0; i<count; i++){
+        delay10MS();
+        sleep();
+        rotate_left();
+    }
 }
 void set_delay(int new_delay){
     delay_int = new_delay;
 }
+void clear_all_leds(void){
+    clear_all();
+}
+
+void next_command (void){
+    int i =0;
+    while ( script_files.p_scripts[script][script_char_index] != '\n'){
+        if (script_files.p_scripts[script][script_char_index] == '!'){
+            ready = 0;
+            script = -1;
+            break;
+        }
+        command_buff[i] = script_files.p_scripts[script][script_char_index];
+        i++;
+        script_char_index++;
+    }
+    script_char_index++;
+    opcode[1] = command_buff[1];
+    int operand1_int = (command_buff[2]-48)*16 +(command_buff[3]-48);
+    int operand2_int = (command_buff[4]-48)*16 +(command_buff[5]-48);
+    switch (opcode[1]) {
+        case '1':
+            RGBBlink(operand1_int);
+            return;
+        case '2':
+            rlc_leds(operand1_int);
+            return;
+        case '3':
+            rrc_leds(operand1_int);
+            return;
+        case '4':
+            set_delay(operand1_int);
+            return;
+        case '5':
+            clear_all_leds();
+            return;
+        case '6':
+            MOTOR_2_deg(operand1_int);
+            send_degree(operand1_int);
+            return;
+        case '7':
+            MOTOR_2_deg(operand1_int);
+            send_degree(operand1_int);
+            MOTOR_2_deg(operand2_int);
+            send_degree(operand2_int);
+            return;
+        case '8':
+            sleep();
+            return;
+    }
+
+}
+
+
 

@@ -11,9 +11,9 @@
 enum SYSmode{mode0,mode1,mode2,mode3,mode4}; // global variable
 extern char rec_mode;
 extern volatile unsigned int state;
-extern volatile int top_to_bottom;                           // going to be the highest
-extern volatile int bottom_to_top;                           // going to be 0
-extern volatile char POT_val[5];
+extern int ready;
+extern int script;
+extern int script_char_index;
 extern volatile unsigned int current_step ;
 extern volatile unsigned int delay_int ;
 extern float deg ;
@@ -26,6 +26,7 @@ extern int steps;
 //**************************************************************
 extern void progConfig(void);
 extern void MOTOR_move(void);
+extern void clear_all_leds(void);
 extern void MOTOR_2_zero(int delay);
 extern void sleep(void);
 extern void joystick_2_motor(int delay);
@@ -33,8 +34,11 @@ extern float calc_degree(int mode);
 extern void MOTOR_2_deg(float deg);
 extern void set_delay(int new_delay);
 extern void delayXms(long int);
-extern void RGBBlink(int count, int delay);
-extern void rlc_leds(int count, int delay);
+extern void RGBBlink(int count);
+extern void rlc_leds(int count);
+extern void rrc_leds(int count);
+extern void next_command (void);
+extern void stepper_deg(void);
 extern void send_degree(float deg);
 extern void send_painter_mode_change();
 

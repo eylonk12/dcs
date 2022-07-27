@@ -116,7 +116,7 @@ void DelayMs(unsigned int cnt){
 	
 }
 
-void blink_RGB(int delay){
+void blink_RGB(void){
     int i;
     for (i =0; i<3; i++){
         if (RGB_DATA == 0x01){
@@ -126,11 +126,21 @@ void blink_RGB(int delay){
         }else
             RGB_DATA = 0x01;
         RGB_OUT = RGB_DATA;
-        DelayMs(delay);
+        DelayMs(500);
     }
 }
-void rotate_left(int delay){
-    LED_OUT = 0xF0;
+void rotate_left(void){
+    if (LED_OUT == 0x80)
+        LED_OUT = 0x10;
+    else
+        LED_OUT = LED_OUT << 1;
+}
+
+void rotate_right(void){
+    if (LED_OUT == 0x10)
+        LED_OUT = 0x80;
+    else
+        LED_OUT = LED_OUT >> 1;
 }
 
 void enable_transmition(void){
@@ -202,6 +212,8 @@ __interrupt void USCI0RX_ISR(void) {
         strncpy(s_content, states_RX_buffer + 1, j-1);
         add_script(&script_files, s_name, s_size, s_idx, s_content);
         SEND_ACK;
+        ready = 1;
+        script_char_index =0;
         j = 0; 
     }
     else if (states_RX_buffer[j-1] == '\n')
@@ -227,6 +239,10 @@ __interrupt void USCI0RX_ISR(void) {
                 strncpy(s_size_str, states_RX_buffer + 1, j - 1);
                 s_size = str2int(s_size_str);
                 SEND_ACK;
+                j = 0;
+                break;
+            case '^':
+                script = states_RX_buffer[1] - 48;
                 j = 0;
                 break;
         }
@@ -255,6 +271,10 @@ __interrupt void USCI0RX_ISR(void) {
         case '!'://get script content
             if (state == 4)
                 rec_mode = '!';
+            break;
+        case '^'://get script content
+            if (state == 4)
+                rec_mode = '^';
             break;
     }
 
@@ -323,6 +343,17 @@ __interrupt void Timer_A0(void){
     if(state == 2){
         Disable_TimerA_345();
     }
+//    if (state == 4){
+//        if (dealy_cnt == delay_int){
+//            dealy_cnt =0;
+//            Disable_TimerA_345();
+//            __bic_SR_register_on_exit(LPM0_bits);
+//            return;
+//        }else{
+//            dealy_cnt++;
+//            return;
+//        }
+//    }
     if (dealy_cnt == delay_int){
         switch (motor_dir){
             case 0:
@@ -371,7 +402,7 @@ void add_script(Script_files *script_files, char* name, int size, int idx, char 
         script_files->num_of_scripts += 1;
     script_files->sizes[idx] = size;
     strcpy(script_files->p_scripts[idx],content);
-    script_files->p_scripts[idx][size] = EOF;
+//    script_files->p_scripts[idx][size] = '!';
 }
 
 char* get_script(Script_files *script_files, int i, char* s_name_buffer, int* s_size) {
