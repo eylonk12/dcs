@@ -279,7 +279,7 @@ def stepper_motor_calibration():
     print("before ACK")
     Wait4ACK()
     print("after ACK")
-    tkinter.messagebox.showinfo("Stepper Motor Calibration",'the pointer are going to 0 degree \n the number on steps is: 2050\n every step angle is: 0.1756 degree')
+    tkinter.messagebox.showinfo("Stepper Motor Calibration",'Stop the pointer when it is on 0 degree \n the number on steps is: 2050\n every step angle is: 0.1756 degree')
 
 
 def script_mode():
